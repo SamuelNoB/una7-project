@@ -1,5 +1,6 @@
 
-import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";
+import { useState } from "react";
+import { BsFacebook, BsLinkedin, BsInstagram } from "react-icons/bs";
 import {
   Row,
   Col,
@@ -12,19 +13,36 @@ import {
   Collapse
 } from "reactstrap";
 
+
+const style = {margin: '0 5px'};
+function openNewPage(pageLink: string) {
+  window.open(pageLink);
+}
+
+
 export default function DefaultLayout({children}: any) {
+
+  const [isOpen, setIsOpen] = useState(false);
+  
+  function toggle () {
+    setIsOpen(!isOpen)
+  }
+
+
+
   return (
     <>
     <Navbar
       color="light"
       expand="md"
-      
+      light
     >
       <NavbarBrand href="/">
         Una7
       </NavbarBrand>
-      <NavbarToggler onClick={function noRefCheck(){}} />
-      <Collapse navbar >
+      <NavbarToggler onClick={toggle} />
+      <Collapse navbar 
+        isOpen={isOpen}>
         <Nav
           className="ms-auto"
           navbar
@@ -45,14 +63,14 @@ export default function DefaultLayout({children}: any) {
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-                  <NavLink>
-                    <BsFacebook/>
+                  <NavLink style={ style } href="https://www.facebook.com/agenciauna7" target="_blank">
+                    <BsFacebook size={20}/>
                   </NavLink>
-                  <NavLink>
-                    <BsLinkedin />
+                  <NavLink style={ style } href="https://www.linkedin.com/in/agenciauna7/" target="_blank">
+                    <BsLinkedin size={20} />
                   </NavLink>
-                  <NavLink>
-                    <BsTwitter />
+                  <NavLink style={ style } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                    <BsInstagram size={20} />
                   </NavLink>
           </NavItem>
           
@@ -61,7 +79,6 @@ export default function DefaultLayout({children}: any) {
     </Navbar>
       <main>{children}</main>
     <footer>
-      foo bar
     </footer>
     </>
   )
