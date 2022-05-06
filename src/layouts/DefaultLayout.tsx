@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { BsFacebook, BsLinkedin, BsInstagram } from "react-icons/bs";
+import { useState, useEffect } from "react";
+import { BsFacebook, BsLinkedin, BsInstagram, BsTwitter } from "react-icons/bs";
 import {
   Row,
   Col,
@@ -14,19 +14,20 @@ import {
 } from "reactstrap";
 
 
-const style = {margin: '0 5px'};
-function openNewPage(pageLink: string) {
-  window.open(pageLink);
-}
-
-
+let style = {};
 export default function DefaultLayout({children}: any) {
-
+  useEffect(() => {
+    style = {margin: '0 0'}
+    if (window.innerWidth < 768) {
+      style = {margin: '0 5px'}
+    }
+  })
   const [isOpen, setIsOpen] = useState(false);
   
   function toggle () {
     setIsOpen(!isOpen)
   }
+  
 
 
 
@@ -71,6 +72,9 @@ export default function DefaultLayout({children}: any) {
                   </NavLink>
                   <NavLink style={ style } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsInstagram size={20} />
+                  </NavLink>
+                  <NavLink style={ style } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                    <BsTwitter size={20} />
                   </NavLink>
           </NavItem>
           
