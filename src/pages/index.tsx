@@ -6,7 +6,8 @@ import DefaultLayout from '../layouts/DefaultLayout'
 
 const Home = () => {
   return (
-    <>hello world</>
+    <>
+    </>
   )
 }
 

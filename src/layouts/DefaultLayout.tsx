@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
+import Image from 'next/image'
 import { BsFacebook, BsLinkedin, BsInstagram, BsTwitter } from "react-icons/bs";
+import logo from '../static/images/LogoUna7.jpg'
 import {
   Row,
   Col,
@@ -39,7 +41,7 @@ export default function DefaultLayout({children}: any) {
       light
     >
       <NavbarBrand href="/">
-        Una7
+        <Image src={logo} width={55} height={55} alt="logo"/>
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse navbar 
@@ -82,8 +84,20 @@ export default function DefaultLayout({children}: any) {
     </Collapse>
     </Navbar>
       <main>{children}</main>
-    <footer>
-    </footer>
+    <div className="fixed-bottom">
+        <Row style={{backgroundColor: '#E3E3E3'}}>
+          <Col className="d-flex align-items-start" style={{height: '4em'}}>
+            <a href="/admin" style={{color:"#000000"}}>
+              Administrador
+              </a>
+          </Col>
+        </Row>
+        <Row className="justify-content-between" style={{backgroundColor: '#C9C9C9'}}>
+          <Col lg={3}>Desenvolvido por Samuel Nogueira</Col>
+          <Col lg={4}>Agência Una7 © 2022. Todos os direitos Reservados</Col>
+          <Col lg={2}></Col>
+        </Row>
+    </div>
     </>
   )
 }
