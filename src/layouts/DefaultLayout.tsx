@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import Image from 'next/image'
+import Link from "next/link";
 import { BsFacebook, BsLinkedin, BsInstagram, BsTwitter } from "react-icons/bs";
 import logo from '../static/images/LogoUna7.jpg'
 import {
@@ -36,9 +37,11 @@ export default function DefaultLayout({children}: any) {
   return (
     <>
     <Navbar
-      color="light"
-      expand="md"
+      expand="lg"
       light
+      fixed="top"
+      style={{backgroundColor: 'transparent'}}
+
     >
       <NavbarBrand href="/">
         <Image src={logo} width={55} height={55} alt="logo"/>
@@ -87,9 +90,9 @@ export default function DefaultLayout({children}: any) {
     <div className="fixed-bottom">
         <Row style={{backgroundColor: '#E3E3E3'}}>
           <Col className="d-flex align-items-start" style={{height: '4em'}}>
-            <a href="/admin" style={{color:"#000000"}}>
+            <Link href="/admin" >
               Administrador
-              </a>
+              </Link>
           </Col>
         </Row>
         <Row className="justify-content-between" style={{backgroundColor: '#C9C9C9'}}>
