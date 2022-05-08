@@ -16,7 +16,7 @@ import {
   Collapse
 } from "reactstrap";
 
-
+const linkStyle = {color: 'rgba(0,0,0,1) !important'}
 let style = {};
 export default function DefaultLayout({children}: any) {
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function DefaultLayout({children}: any) {
       expand="lg"
       light
       fixed="top"
-      style={{backgroundColor: 'transparent'}}
+      style={{backgroundColor: '#e3e3e363'}}
 
     >
       <NavbarBrand href="/">
@@ -50,35 +50,35 @@ export default function DefaultLayout({children}: any) {
       <Collapse navbar 
         isOpen={isOpen}>
         <Nav
-          className="ms-auto"
+          className="ms-auto fw-bold fs-5"
           navbar
         >
           <NavItem>
-            <NavLink href="/">
+            <NavLink href="/" style={linkStyle}>
               Home
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/blog">
+            <NavLink href="/blog" style={linkStyle}>
               Blog
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/contact">
+            <NavLink href="/contact" style={linkStyle}>
               Contato
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-                  <NavLink style={ style } href="https://www.facebook.com/agenciauna7" target="_blank">
+                  <NavLink style={ {...style, ...linkStyle} } href="https://www.facebook.com/agenciauna7" target="_blank">
                     <BsFacebook size={20}/>
                   </NavLink>
-                  <NavLink style={ style } href="https://www.linkedin.com/in/agenciauna7/" target="_blank">
+                  <NavLink style={ {...style, ...linkStyle} } href="https://www.linkedin.com/in/agenciauna7/" target="_blank">
                     <BsLinkedin size={20} />
                   </NavLink>
-                  <NavLink style={ style } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                  <NavLink style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsInstagram size={20} />
                   </NavLink>
-                  <NavLink style={ style } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                  <NavLink style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsTwitter size={20} />
                   </NavLink>
           </NavItem>
@@ -87,17 +87,17 @@ export default function DefaultLayout({children}: any) {
     </Collapse>
     </Navbar>
       <main>{children}</main>
-    <div className="fixed-bottom">
-        <Row style={{backgroundColor: '#E3E3E3'}}>
-          <Col className="d-flex align-items-start" style={{height: '4em'}}>
+    <div className="w-100">
+        <Row className="w-100 align-items-end" style={{backgroundColor: '#E3E3E3', margin: '0'}}>
+          <Col className="d-flex " style={{height: '4em'}}>
             <Link href="/admin" >
               Administrador
               </Link>
           </Col>
         </Row>
-        <Row className="justify-content-between" style={{backgroundColor: '#C9C9C9'}}>
+        <Row className="w-100 justify-content-between" style={{backgroundColor: '#C9C9C9', margin: '0'}}>
           <Col lg={3}>Desenvolvido por Samuel Nogueira</Col>
-          <Col lg={4}>Agência Una7 © 2022. Todos os direitos Reservados</Col>
+          <Col lg={4} style={{textAlign: 'center'}}>Agência Una7 © 2022. Todos os direitos Reservados</Col>
           <Col lg={2}></Col>
         </Row>
     </div>
