@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import type { NextPage } from 'next'
 import Image from 'next/image';
 
 import { Container, Row, Col} from "reactstrap";
 
 import DefaultLayout from '../layouts/DefaultLayout'
 import ClientCard from "../components/home/ClientCard";
+import BlogCard from "../components/BlogCard";
+import PartnerCard from "../components/home/PartnerCard";
+
 
 const responsive = {
   superLargeDesktop: {
@@ -75,32 +77,66 @@ const Home = () => {
           <Col lg={3} style={{padding: '0 3px'}}>
             <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
           </Col>
-          <Col lg={3} style={{padding: '0 3px'}}>
+          <Col lg={3}  style={{padding: '0 3px'}}>
             <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
           </Col>
         </Row>
       </div>
       </Container >
+
       <Container style={{marginTop: '6em'}}>
         <Row className="justify-content-center" style={{marginBottom: '2em'}}>
-            <Col lg={4} className="fs-2 fw-bold" style={{textAlign: 'center'}}>Ultimas publicações</Col>
+            <Col lg={9} className="fs-2 fw-bold" style={{textAlign: 'center'}}>Últimas publicações</Col>
         </Row>
+        
+          <Row className="justify-content-center" style={{marginBottom: '2em'}}>
+              <Col lg={9} className="fs-4 fw-bold" >Instragram</Col>
+          </Row>
+          
+          <Row className="justify-content-center">
+            <Col lg={9} className="fs-4 fw-bold" style={{marginBottom: '0.5em'}}>Blog</Col>
 
-        <div>
-          <Row style={{marginBottom: '2em'}}>
-              <Col lg={4} className="fs-4 fw-bold" >Instragram</Col>
+            <Col lg={9}>
+              <Carousel responsive={responsive}>
+                <div style={{margin: '0 0.2em'}}>
+                <BlogCard />
+                </div>
+                <div style={{margin: '0 0.2em'}}>
+                  <BlogCard />
+                </div>
+                <div style={{margin: '0 0.2em'}}>
+                  <BlogCard />
+                </div>
+                <div style={{margin: '0 0.2em'}}>
+                  <BlogCard />
+                </div>
+                <div style={{margin: '0 0.2em'}}>
+                  <BlogCard />
+                </div>
+              </Carousel>
+            </Col>
           </Row>
-          <Row style={{marginBottom: '2em'}}>
-              <Col lg={4} className="fs-4 fw-bold" >Blog</Col>
-          </Row>
-          <Carousel responsive={responsive}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Carousel>
-        </div>
+      </Container>
+
+      <Container style={{marginTop: '6em', marginBottom: '8em'}}>
+        <Row className="justify-content-center" style={{marginBottom: '2em'}}>
+            <Col lg={4} className="fs-2 fw-bold" style={{textAlign: 'center'}}>Parceiros</Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col lg={9}>
+            <Carousel responsive={responsive}  >
+              <div style={{margin: '0 0.2em'}}>
+                <PartnerCard />
+              </div>
+              <div style={{margin: '0 0.2em'}}>
+                <PartnerCard />
+              </div>
+              <div style={{margin: '0 0.2em'}}>
+                <PartnerCard />
+              </div>
+            </Carousel>
+          </Col>
+        </Row>
       </Container>
     </>
     
