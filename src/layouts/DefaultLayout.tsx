@@ -18,7 +18,7 @@ import {
 
 const linkStyle = {color: 'rgba(0,0,0,1) !important'}
 let style = {};
-export default function DefaultLayout({children}: any) {
+export default function DefaultLayout({children, fixed}: any) {
   useEffect(() => {
     style = {margin: '0 0'}
     if (window.innerWidth < 768) {
@@ -39,7 +39,7 @@ export default function DefaultLayout({children}: any) {
     <Navbar
       expand="lg"
       light
-      fixed="top"
+      fixed={fixed}
       style={{backgroundColor: '#e3e3e363'}}
 
     >

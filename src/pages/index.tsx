@@ -145,7 +145,7 @@ const Home = () => {
 
 Home.getLayout = function getLayout(page: any) {
   return (
-    <DefaultLayout>
+    <DefaultLayout fixed={"top"}>
       {page}
     </DefaultLayout>
   )
