@@ -1,4 +1,6 @@
 import { BsTelephone } from "react-icons/bs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { MdAlternateEmail, MdEmail, MdForwardToInbox, MdLocationOn } from "react-icons/md";
 
 
@@ -24,8 +26,39 @@ function ContactPage(props: any) {
     message: ''
   })
 
-  function submitForm() {
-    console.log(contactInput);
+
+  const submitForm = async (e: Event) => {
+    e.preventDefault()
+    const response = await fetch('api/sendMessage', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(contactInput),
+    });
+    
+    const data = await response.json();
+    console.log(data)
+    if (data?.error) {
+      toast.error(data.error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        });
+      return ;
+    }
+
+    toast.success(data.message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      });
   }
 
   return (
@@ -33,7 +66,7 @@ function ContactPage(props: any) {
     <Container style={{marginBottom: '3em'}}>
       <Row style={{margin: '2em 0 4em 0'}} className="justify-content-center">
         <Col lg={2}>
-          <h2 style={{textAlign: 'center'}}>Blog</h2>
+          <h2 style={{textAlign: 'center'}}>Contatos</h2>
         </Col>
       </Row>
       <Row>
@@ -78,58 +111,61 @@ function ContactPage(props: any) {
               <CardTitle tag={'h3'} >
                 Envie-nos uma mensagem
               </CardTitle>
-              <FormGroup>
-                <Label for='fullName'>
-                  Nome completo
-                </Label>
-                <Input 
-                type="text" 
-                id='fullName' 
-                placeholder="Digite seu nome completo" 
-                onChange={e => setContatInput({...contactInput, fullName: e.target.value})}></Input>
-              </FormGroup>
-              <FormGroup>
-                <Label for='email'>
-                  E-mail
-                </Label>
-                <Input 
-                type="email" 
-                id='email' 
-                placeholder="Digite seu email para contato" 
-                onChange={e => setContatInput({...contactInput, email: e.target.value})}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for='subject'>
-                  Assunto
-                </Label>
-                <Input type="text" 
-                id='subject' 
-                placeholder="Coloque aqui o assunto da mensagem" 
-                onChange={e => setContatInput({...contactInput, subject: e.target.value})}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for='message'>
-                  Assunto
-                </Label>
-                <Input type="textarea" 
-                id='message' 
-                placeholder="Digite a mensagem que gostaria de enviar" 
-                onChange={e => setContatInput({...contactInput, message: e.target.value})}
-                />
-              </FormGroup>
-              <Row>
-                <Col lg={3}>
-                  <Button onClick={submitForm} style={{backgroundColor: 'rgba(169, 81, 139, 1)'}}>
-                    Enviar <MdForwardToInbox />
-                  </Button>
-                </Col>
-              </Row>
+              <Form onSubmit={submitForm}>
+                <FormGroup>
+                  <Label for='fullName'>
+                    Nome completo
+                  </Label>
+                  <Input
+                  type="text"
+                  id='fullName'
+                  placeholder="Digite seu nome completo"
+                  onChange={e => setContatInput({...contactInput, fullName: e.target.value})}></Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for='email'>
+                    E-mail
+                  </Label>
+                  <Input
+                  type="email"
+                  id='email'
+                  placeholder="Digite seu email para contato"
+                  onChange={e => setContatInput({...contactInput, email: e.target.value})}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for='subject'>
+                    Assunto
+                  </Label>
+                  <Input type="text"
+                  id='subject'
+                  placeholder="Coloque aqui o assunto da mensagem"
+                  onChange={e => setContatInput({...contactInput, subject: e.target.value})}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for='message'>
+                    Mensagem
+                  </Label>
+                  <Input type="textarea"
+                  id='message'
+                  placeholder="Digite a mensagem que gostaria de enviar"
+                  onChange={e => setContatInput({...contactInput, message: e.target.value})}
+                  />
+                </FormGroup>
+                <Row>
+                  <Col lg={3}>
+                    <Button style={{backgroundColor: 'rgba(169, 81, 139, 1)'}}>
+                      Enviar <MdForwardToInbox />
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
             </CardBody>
           </Card>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   </>
   )
