@@ -25,7 +25,7 @@ model Publication {
   active        Boolean     @default(true)
   title         String
   subTitle      String
-  coverImageId  Int         // imagem de capa da publicação
+  coverImage    String        // imagem de capa da publicação
   content       String
 
   createdAt     DateTime    @default(now())
@@ -41,14 +41,14 @@ model Partner {
   name          String
   link          String
   active        Boolean     @default(true)
-  imageId       Int         @unique // se relaciona com o model File
+  image         String// se relaciona com o model File
 }
 
 model Client {
   id            Int         @id @default(autoincrement())
   visible       Boolean     @default(true)
   name          String
-  clientPhotoId Int
+  clientPhoto   String
   link          String?
 }
 
@@ -59,11 +59,3 @@ model Contact {
   email         String
   content       String
 }
-
-
-model File {
-  id        Int     @id @default(autoincrement())
-  name      String
-  content   Bytes
-}
-
