@@ -2,7 +2,8 @@ import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
-import '../styles/globals.css'
+import '../styles/helper.scss';
+import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

@@ -7,7 +7,7 @@ export default function PartnerCard(params: any) {
       href={'https://www.youtube.com/'}
       passHref
       >
-      <Card inverse style={{height:'45vh'}}>
+      <Card inverse style={{height:'45vh'}} className="hoverClass">
         <CardImg
         style={{height: "100%"}}
         width={'100%'}

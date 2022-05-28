@@ -1,0 +1,10 @@
+.hoverClass {
+  background: inherit;
+  transition: 1s ease;
+}
+
+.hoverClass:hover {
+  cursor: pointer;
+  opacity: 0.70;
+  transition: .5s ease;
+}

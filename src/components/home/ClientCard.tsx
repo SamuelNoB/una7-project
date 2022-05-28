@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-
 interface ClientCardProps {
   width?: number;
   height?: number
@@ -22,7 +21,7 @@ function ClientCard(params: ClientCardProps) {
   }
 
   return (
-  <div >
+  <div className="hoverClass">
     <Link href={params.externalLink} passHref>
       <Image src={params.imageLink} alt="client" width={imageHeight} height={imageWidth} layout='responsive' />
     </Link>

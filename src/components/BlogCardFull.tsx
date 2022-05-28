@@ -4,10 +4,12 @@ import { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardText } from "reactstrap";
 
 
-const cardStyle = ({hover}: any) => ({
+const cardStyle = (hover: any) => {
+  return {
   cursor: 'pointer',
+  opacity:  hover ?'0.75': '',
   backgroundColor: hover ? 'rgba(229, 226, 226, 0.42)' : ''
-})
+}}
 
 interface PostCard {
   id: string | number,
@@ -28,9 +30,9 @@ function BlogCardFull({params}: props) {
     
       <Link href={'/blog/post/[id]'} as={`blog/post/${params.id}`} passHref >
         <Card
+        className="hoverClass"
         style={cardStyle(hover)}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
+        
         color="light"
           >
           <CardImg

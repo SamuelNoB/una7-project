@@ -6,6 +6,7 @@ function BlogCard(params: any) {
   return (
     
       <Card
+      className="hoverClass"
       color="light"
         >
         <CardImg
