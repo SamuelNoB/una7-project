@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from 'next/image';
-
+import Script from 'next/script'
+import { ElfsightWidget } from 'react-elfsight-widget';
 import { Container, Row, Col} from "reactstrap";
 
 import DefaultLayout from '../layouts/DefaultLayout'
 import ClientCard from "../components/home/ClientCard";
 import BlogCard from "../components/BlogCard";
 import PartnerCard from "../components/home/PartnerCard";
+import WhatsappItem from "../components/home/Whatsapp";
 
 
 const responsive = {
@@ -37,7 +39,6 @@ const Home = () => {
   return (
     <>
       <div style={{height: '100vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-          
           <Row className="h-100 w-100 justify-content-center align-items-center">
             <Row className='justify-content-center w-100' >
               <Col lg={3} style={{textAlign: 'center'}} className='fs-2 fw-bold'>Bem vindo a agência Una7</Col>
@@ -91,6 +92,7 @@ const Home = () => {
         
           <Row className="justify-content-center" style={{marginBottom: '2em'}}>
               <Col lg={9} className="fs-4 fw-bold" >Instragram</Col>
+              <ElfsightWidget widgetID="92ad1ffe-4ccf-4a03-b540-45a1ed524bf8" />
           </Row>
           
           <Row className="justify-content-center">
@@ -138,6 +140,7 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
+      <WhatsappItem to={"https://wa.me/556181577003"}/>
     </>
     
   )

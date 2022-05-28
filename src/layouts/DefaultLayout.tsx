@@ -15,6 +15,7 @@ import {
   NavbarToggler,
   Collapse
 } from "reactstrap";
+import WhatsappItem from "../components/home/Whatsapp";
 
 const linkStyle = {color: 'rgba(0,0,0,1) !important'}
 let style = {};
