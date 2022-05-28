@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import nextConnect from 'next-connect'
 
 type Data = {
-  posts: Publication[]
+  posts: Partial<Publication>[]
 }
 type Error = {
   error: string
@@ -21,6 +21,16 @@ const prisma = new PrismaClient()
 
 async function getAllPosts(req: NextApiRequest, res: NextApiResponse<Data>) {
   const allPosts = await prisma.publication.findMany({
+    where: {
+      active: true
+    },
+    select: {
+      title: true,
+      subTitle: true,
+      coverImage: true,
+      id: true,
+      createdAt: true
+    },
     orderBy: {
       createdAt: 'asc'
     }
