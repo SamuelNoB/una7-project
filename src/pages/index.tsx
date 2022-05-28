@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from 'next/image';
-import Script from 'next/script'
 import { ElfsightWidget } from 'react-elfsight-widget';
 import { Container, Row, Col} from "reactstrap";
 
@@ -39,7 +38,7 @@ const Home = () => {
   return (
     <>
       <div style={{height: '100vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-          <Row className="h-100 w-100 justify-content-center align-items-center">
+          <Row className="h-100 w-100 justify-content-center align-items-center" style={{backgroundColor: '#FFF3', margin: 0}}>
             <Row className='justify-content-center w-100' >
               <Col lg={3} style={{textAlign: 'center'}} className='fs-2 fw-bold'>Bem vindo a agência Una7</Col>
               <Col lg={6} className='fs-5 ' >Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, iure optio? Minus praesentium modi nihil doloremque tempora illo asperiores qui quas, eligendi rerum aspernatur provident iste magni ea repellendus odio. </Col>
