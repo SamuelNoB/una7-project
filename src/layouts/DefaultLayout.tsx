@@ -1,4 +1,4 @@
-
+import { useSession, signIn, signOut } from "next-auth/react"
 import { useState, useEffect } from "react";
 import Image from 'next/image'
 import Link from "next/link";
@@ -91,9 +91,9 @@ export default function DefaultLayout({children, fixed}: any) {
     <div className="w-100">
         <Row className="w-100 align-items-end" style={{backgroundColor: '#E3E3E3', margin: '0'}}>
           <Col className="d-flex " style={{height: '4em'}}>
-            <Link href="/admin" >
+            <p onClick={() => signIn()} style={{cursor: 'pointer'}}>
               Administrador
-              </Link>
+              </p>
           </Col>
         </Row>
         <Row className="w-100 justify-content-between" style={{backgroundColor: '#C9C9C9', margin: '0'}}>
