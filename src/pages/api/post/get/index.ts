@@ -20,7 +20,11 @@ const apiRoute = nextConnect({
 const prisma = new PrismaClient()
 
 async function getAllPosts(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const allPosts = await prisma.publication.findMany();
+  const allPosts = await prisma.publication.findMany({
+    orderBy: {
+      createdAt: 'asc'
+    }
+  });
   return res.status(200).json({posts: allPosts})
 }
 

@@ -26,7 +26,6 @@ async function handler(
   res: NextApiResponse<Data | Error>
 ) {
   const data: createPostInput = req.body;
-  data.coverImage = req.file.filename
     const result = await prisma.publication.create({
       data: {
         content: data.content,
@@ -36,7 +35,7 @@ async function handler(
         coverImage: data.coverImage ?? ''
       }
     });
-    
+
   return res.status(200).json({
     message: "Publicação criada com sucesso",
     data: result
