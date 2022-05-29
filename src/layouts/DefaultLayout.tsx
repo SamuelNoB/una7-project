@@ -1,7 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useState, useEffect } from "react";
 import Image from 'next/image'
-import Link from "next/link";
 import { BsFacebook, BsLinkedin, BsInstagram, BsTwitter } from "react-icons/bs";
 import logo from '../static/images/LogoUna7.jpg'
 import {

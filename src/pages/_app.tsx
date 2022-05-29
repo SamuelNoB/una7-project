@@ -7,9 +7,11 @@ import '../styles/helper.scss';
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Auth from "../components/auth";
 
 type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode
+  getLayout?: (page: ReactElement) => ReactNode,
+  auth?: boolean
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -18,7 +20,16 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
-  return (<SessionProvider session={session}>{getLayout(<Component {...pageProps} />)}</SessionProvider>)
+  return (
+  <SessionProvider session={session}>
+    {Component.auth ? (
+      <Auth>
+        {getLayout(<Component {...pageProps} />)}
+      </Auth>
+    ) :
+    (getLayout(<Component {...pageProps} />))
+    }
+  </SessionProvider>)
 }
 
 export default MyApp
