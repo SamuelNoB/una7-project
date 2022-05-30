@@ -1,8 +1,9 @@
 import { NextPage } from "next"
+import { Container } from "reactstrap"
 import AdminLayout from "../../layouts/AdminLayout"
 
 function AdminIndex(props: any) {
-  return (<>admin page</>)
+  return (<Container>admin page</Container>)
 }
 
 

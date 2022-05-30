@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
 import { useState, useEffect } from "react";
 import Image from 'next/image'
 import { BsFacebook, BsLinkedin, BsInstagram, BsTwitter } from "react-icons/bs";
@@ -14,11 +14,13 @@ import {
   NavbarToggler,
   Collapse
 } from "reactstrap";
-import WhatsappItem from "../components/home/Whatsapp";
+import { useRouter } from "next/router";
 
 const linkStyle = {color: 'rgba(0,0,0,1) !important'}
 let style = {};
 export default function DefaultLayout({children, fixed}: any) {
+  const { data: session, status } = useSession()
+  const router = useRouter();
   useEffect(() => {
     style = {margin: '0 0'}
     if (window.innerWidth < 768) {
@@ -30,7 +32,15 @@ export default function DefaultLayout({children, fixed}: any) {
   function toggle () {
     setIsOpen(!isOpen)
   }
-  
+  function sendToAdmin() {
+    if (status === 'authenticated') {
+      router.push('/admin')
+      return
+    }
+    signIn('google', {
+      callbackUrl: '/admin'
+    })
+  }
 
 
 
@@ -90,7 +100,7 @@ export default function DefaultLayout({children, fixed}: any) {
     <div className="w-100">
         <Row className="w-100 align-items-end" style={{backgroundColor: '#E3E3E3', margin: '0'}}>
           <Col className="d-flex " style={{height: '4em'}}>
-            <p onClick={() => signIn()} style={{cursor: 'pointer'}}>
+            <p onClick={sendToAdmin} style={{cursor: 'pointer'}}>
               Administrador
               </p>
           </Col>
