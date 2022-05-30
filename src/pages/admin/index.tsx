@@ -1,9 +1,15 @@
 import { NextPage } from "next"
 import { Container } from "reactstrap"
+import AdminHeader from "../../components/admin/Header"
 import AdminLayout from "../../layouts/AdminLayout"
 
 function AdminIndex(props: any) {
-  return (<Container>admin page</Container>)
+  return (
+  <Container>
+    <AdminHeader title={'Publicações'} />
+    admin page
+  </Container>
+  )
 }
 
 
