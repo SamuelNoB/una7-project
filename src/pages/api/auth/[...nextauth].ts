@@ -17,8 +17,6 @@ export default NextAuth({
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(user, account, profile, email, credentials);
-      
       const isAllowedToSignIn = authorizedEmails.find(email => user.email === email);
       if (isAllowedToSignIn) {
         return true

@@ -14,7 +14,6 @@ import { Col, Row } from "reactstrap";
 function AdminLayout({children}: any) {
   const { data: session, status } = useSession()
   const router = useRouter();
-  console.log(session);
   
   const routes: NavItemProps[] = [
     {
