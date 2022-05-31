@@ -31,8 +31,7 @@
     "react-multi-carousel": "^2.8.0",
     "react-toastify": "^9.0.1",
     "reactstrap": "^9.0.2",
-    "uuid": "^8.3.2",
-    "yup": "^0.32.11"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",
