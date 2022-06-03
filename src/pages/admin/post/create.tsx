@@ -1,4 +1,5 @@
 import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
+import { ToastContainer, toast } from 'react-toastify';
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar, ToolbarSettingsModel } from '@syncfusion/ej2-react-richtexteditor';
 import { NextPage } from "next"
 import { useRouter } from 'next/router';
@@ -29,16 +30,31 @@ function CreatePost() {
     coverImage: '',
   })
   const router = useRouter()
-  const postCreation = useMutation(newPost => {
+  const postCreation = useMutation<createPostInput, any, any>((newPost: createPostInput) => {
     return PostService.createPost(newPost)
-  });
+  }, {onSuccess: () => success() });
+
+  function success() {
+    router.push('/admin');
+    const message = 'Postagem criada com sucesso!'
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
 
   function onSubmit(event: any) {
     event.preventDefault()
     postCreation.mutate(postInput)
   }
 
+
   return (
+  <>
   <Container>
     <AdminHeader title='Criar Postagem' />
     <Row style={{marginBottom: '1em'}}>
@@ -83,41 +99,8 @@ function CreatePost() {
         </Col>
       </Row>
       <Label>Conteúdo</Label>
-      <RichTextEditorComponent toolbarSettings={toolbarSettings} insertImageSettings={{saveFormat: 'Base64'}}>
-          <p>The Rich Text Editor component is WYSIWYG ("what you see is what you get") editor that provides the best user experience to create and update the content. Users can format their content using standard toolbar commands.</p>
-          <p><b>Key features:</b></p>
-          <ul>
-              <li>
-                  <p>Provides &lt;IFRAME&gt; and &lt;DIV&gt; modes</p>
-              </li>
-              <li>
-                  <p>Capable of handling markdown editing.</p>
-              </li>
-              <li>
-                  <p>Contains a modular library to load the necessary functionality on demand.</p>
-              </li>
-              <li>
-                  <p>Provides a fully customizable toolbar.</p>
-              </li>
-              <li>
-                  <p>Provides HTML view to edit the source directly for developers.</p>
-              </li>
-              <li>
-                  <p>Supports third-party library integration.</p>
-              </li>
-              <li>
-                  <p>Allows preview of modified content before saving it.</p>
-              </li>
-              <li>
-                  <p>Handles images, hyperlinks, video, hyperlinks, uploads, etc.</p>
-              </li>
-              <li>
-                  <p>Contains undo/redo manager.</p>
-              </li>
-              <li>
-                  <p>Creates bulleted and numbered lists.</p>
-              </li>
-          </ul>
+      <RichTextEditorComponent toolbarSettings={toolbarSettings} change={ value => setPostInput({...postInput, content: value.value})} insertImageSettings={{saveFormat: 'Base64'}} value={postInput.content}>
+
           <Inject services={[Toolbar, Image, Link, HtmlEditor, QuickToolbar]} />
       </RichTextEditorComponent>
 
@@ -125,7 +108,10 @@ function CreatePost() {
       <Col style={{textAlign: 'end'}}><Button color='success' >Salvar</Button></Col>
     </Row>
     </Form>
+    
   </Container>
+  <ToastContainer />
+  </>
   )
 }
 
