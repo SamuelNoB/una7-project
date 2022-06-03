@@ -1,5 +1,9 @@
 import { SessionProvider } from "next-auth/react"
 import type { ReactElement, ReactNode } from 'react'
+import { useState } from "react"
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { registerLicense } from '@syncfusion/ej2-base';
@@ -22,18 +26,23 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   registerLicense(syncFusionKey)
+  const [queryClient] = useState(() => new QueryClient());
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
-  <SessionProvider session={session}>
-    {Component.auth ? (
-      <Auth>
-        {getLayout(<Component {...pageProps} />)}
-      </Auth>
-    ) :
-    (getLayout(<Component {...pageProps} />))
-    }
-  </SessionProvider>)
+  <QueryClientProvider client={queryClient}>
+    <SessionProvider session={session}>
+      {Component.auth ? (
+        <Auth>
+          {getLayout(<Component {...pageProps} />)}
+        </Auth>
+      ) :
+      (getLayout(<Component {...pageProps} />))
+      }
+      <ReactQueryDevtools initialIsOpen={false} />
+    </SessionProvider>
+  </QueryClientProvider>
+  )
 }
 
 export default MyApp
