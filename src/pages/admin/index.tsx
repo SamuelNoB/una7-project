@@ -3,14 +3,17 @@ import { Button, Col, Container, Row } from "reactstrap"
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import dayjs from 'dayjs';
-import { Publication } from "@prisma/client";
-import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej2-react-grids';
-import { AiOutlineAppstore, AiOutlinePlus } from "react-icons/ai";
+import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2-react-grids';
+import { AiOutlinePlus } from "react-icons/ai";
 
 import AdminHeader from "../../components/admin/Header"
 import AdminLayout from "../../layouts/AdminLayout"
 import PostService from '../../services/PostService'
 import { useEffect, useState } from "react";
+import Commands from "../../components/admin/post/Commands";
+
+import { createRoot } from 'react-dom/client';
+import DeleteModal from "../../components/admin/post/DeleteModal";
 
 type column = {
   field: string,
@@ -30,31 +33,52 @@ const columns: column[] = [
     width: '150'
   },
   {
-    field: 'createdAt',
+    field: 'createdDate',
     headerText: 'Criado em',
-    width: '100'
+    width: '80'
   },
   {
     field: 'commands',
     headerText: 'Comandos',
-    width: '50'
+    width: '80'
   }
 ]
 function AdminIndex(props: any) {
 
   const router = useRouter()
-    const {data, error} = useQuery('getAllPost', PostService.getAllPost);
-    const [posts, setPosts] = useState<SmallPublication[]>([]);
-    useEffect(() => {
-      if (data) {
-        
-        const parsedData = data.map( aPost => ({...aPost, createdAt: dayjs(aPost.createdDate).format('DD/MM/YYYY')}))
-        setPosts(parsedData);
-      }
+  const {data, error} = useQuery('getAllPost', PostService.getAllPost);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [deleteData, setDeleteData] = useState<SmallPublication>()
+  const [posts, setPosts] = useState<SmallPublication[]>([]);
+  useEffect(() => {
+    if (data) {
+      
+      const parsedData = data.map( aPost => 
+        ({...aPost, 
+          createdDate: dayjs(aPost.createdDate).format('DD/MM/YYYY')
+        }))
+      setPosts(parsedData);
     }
-    , [data])
+  }
+  , [data])
+
+  function openDeleteModal(publicationData: SmallPublication) {
+    setDeleteData(publicationData)
+    setDeleteModalIsOpen(!deleteModalIsOpen);
+  }
+
+  function commands(args: any) {
+    if (args.column.field === "commands") {
+        const rowData = args.data as SmallPublication
+        console.log(rowData);
+        
+        const root = createRoot(args.cell);
+        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
+    }
+  }
 
   return (
+  <>
   <Container>
     <AdminHeader title={'Publicações'} />
 
@@ -65,7 +89,7 @@ function AdminIndex(props: any) {
         </Button>
       </Col>
     </Row>
-    <GridComponent dataSource={posts}>
+    <GridComponent dataSource={posts} queryCellInfo={commands}>
       <ColumnsDirective>
         {
           columns.map(column => {
@@ -75,6 +99,8 @@ function AdminIndex(props: any) {
       </ColumnsDirective>
     </GridComponent>
   </Container>
+  <DeleteModal open={deleteModalIsOpen} data={deleteData} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
+  </>
   )
 }
 
