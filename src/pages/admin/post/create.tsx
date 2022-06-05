@@ -90,7 +90,7 @@ function CreatePost() {
             <UploaderComponent id='fileUpload' type='file' name='mainImage'selected={value => setPostInput({...postInput, coverImage: value.filesData[0]})} autoUpload={false} />
           </FormGroup>
           <FormGroup check>
-            <Input type="checkbox" checked={postInput.active} onChange={e => setPostInput({...postInput, active: !postInput.active})} />
+            <Input type="checkbox" checked={postInput.active as boolean} onChange={e => setPostInput({...postInput, active: !postInput.active})} />
             {' '}
             <Label check>
               Ativo

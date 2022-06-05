@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import dayjs from 'dayjs';
 import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2-react-grids';
 import { AiOutlinePlus } from "react-icons/ai";
+import { toast, ToastContainer } from "react-toastify"
 
 import AdminHeader from "../../components/admin/Header"
 import AdminLayout from "../../layouts/AdminLayout"
@@ -70,11 +71,23 @@ function AdminIndex(props: any) {
   function commands(args: any) {
     if (args.column.field === "commands") {
         const rowData = args.data as SmallPublication
-        console.log(rowData);
-        
         const root = createRoot(args.cell);
         root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
     }
+  }
+  function afterDeleted(id: string) {
+    toast.success('Publicação excluida com sucesso', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      });
+  
+    const postIndex =  posts.findIndex(post => post.id === id)
+    posts.splice(postIndex,1);
+    setPosts([...posts]);
   }
 
   return (
@@ -98,8 +111,9 @@ function AdminIndex(props: any) {
         }
       </ColumnsDirective>
     </GridComponent>
+    <ToastContainer />
   </Container>
-  <DeleteModal open={deleteModalIsOpen} data={deleteData} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
+  <DeleteModal open={deleteModalIsOpen} data={deleteData} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
   </>
   )
 }
