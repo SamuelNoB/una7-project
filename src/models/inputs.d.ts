@@ -9,7 +9,7 @@ type ContactInput = {
 type createPostInput = {
   active: boolean | string,
   title: string,
-  coverImage?: string,
+  coverImage?: string | any,
   subtitle: string,
   content: string,
 }

@@ -1,12 +1,16 @@
 import { NextPage } from "next"
 import { Button, Col, Container, Row } from "reactstrap"
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import dayjs from 'dayjs';
 import { Publication } from "@prisma/client";
 import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej2-react-grids';
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineAppstore, AiOutlinePlus } from "react-icons/ai";
 
 import AdminHeader from "../../components/admin/Header"
 import AdminLayout from "../../layouts/AdminLayout"
-import { useRouter } from "next/router";
+import PostService from '../../services/PostService'
+import { useEffect, useState } from "react";
 
 type column = {
   field: string,
@@ -18,23 +22,37 @@ const columns: column[] = [
   {
     field: 'id',
     headerText: 'ID Publicação',
-    width: '80'
+    width: '50'
   },
   {
     field: 'title',
     headerText: 'Título',
-    width: '100'
+    width: '150'
   },
   {
     field: 'createdAt',
     headerText: 'Criado em',
     width: '100'
+  },
+  {
+    field: 'commands',
+    headerText: 'Comandos',
+    width: '50'
   }
 ]
 function AdminIndex(props: any) {
 
   const router = useRouter()
-
+    const {data, error} = useQuery('getAllPost', PostService.getAllPost);
+    const [posts, setPosts] = useState<SmallPublication[]>([]);
+    useEffect(() => {
+      if (data) {
+        
+        const parsedData = data.map( aPost => ({...aPost, createdAt: dayjs(aPost.createdDate).format('DD/MM/YYYY')}))
+        setPosts(parsedData);
+      }
+    }
+    , [data])
 
   return (
   <Container>
@@ -47,11 +65,11 @@ function AdminIndex(props: any) {
         </Button>
       </Col>
     </Row>
-    <GridComponent>
+    <GridComponent dataSource={posts}>
       <ColumnsDirective>
         {
           columns.map(column => {
-            return (<ColumnDirective key={column.field} field={column.field} headerText={column.headerText} width={column.width} textAlign="Right"/>)
+            return (<ColumnDirective key={column.field} field={column.field} headerText={column.headerText} width={column.width} textAlign="Left"/>)
           })
         }
       </ColumnsDirective>

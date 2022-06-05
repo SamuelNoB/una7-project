@@ -8,10 +8,17 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { registerLicense } from '@syncfusion/ej2-base';
 
+import dayjs from 'dayjs'
+import isLeapYear from 'dayjs/plugin/isLeapYear' // import plugin
+import 'dayjs/locale/pt-br' // load on demand
 
 import '../styles/helper.scss';
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+dayjs.locale('pt-br')
+dayjs.extend(isLeapYear) // use plugin
 
 import Auth from "../components/auth";
 const syncFusionKey = process.env.NEXT_PUBLIC_SYNCFUSION_KEY ?? '';

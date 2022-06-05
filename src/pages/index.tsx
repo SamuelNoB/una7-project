@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from 'next/image';
@@ -11,6 +12,8 @@ import BlogCard from "../components/BlogCard";
 import PartnerCard from "../components/home/PartnerCard";
 import WhatsappItem from "../components/home/Whatsapp";
 
+import PostService from "../services/PostService";
+import dayjs from "dayjs";
 
 const responsive = {
   superLargeDesktop: {
@@ -35,6 +38,13 @@ const responsive = {
 
 const Home = () => {
 
+  const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
+  const [publications, setPublications] = useState<SmallPublication[]>([]);
+  useEffect(() => {
+    if (data) {
+      setPublications(data)
+    }
+  }, [data])
   return (
     <>
       <div style={{height: '100vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
@@ -99,21 +109,13 @@ const Home = () => {
 
             <Col lg={9}>
               <Carousel responsive={responsive}>
-                <div style={{margin: '0 0.2em'}}>
-                <BlogCard />
-                </div>
-                <div style={{margin: '0 0.2em'}}>
-                  <BlogCard />
-                </div>
-                <div style={{margin: '0 0.2em'}}>
-                  <BlogCard />
-                </div>
-                <div style={{margin: '0 0.2em'}}>
-                  <BlogCard />
-                </div>
-                <div style={{margin: '0 0.2em'}}>
-                  <BlogCard />
-                </div>
+                {publications.map(publication => {
+                  return (
+                    <div key={publication.id} style={{margin: '0 0.2em'}}>
+                    <BlogCard key={publication.id} {...publication} />
+                    </div>
+                  )
+                })}
               </Carousel>
             </Col>
           </Row>
