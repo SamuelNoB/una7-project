@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import isLeapYear from 'dayjs/plugin/isLeapYear' // import plugin
 import 'dayjs/locale/pt-br' // load on demand
 
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/helper.scss';
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
