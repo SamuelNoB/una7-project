@@ -34,7 +34,7 @@ async function getClient(req: NextApiRequest, res: NextApiResponse) {
   }
   return res.status(200).json({
     message: 'cliente encontrado',
-    data: result
+    client: result
   });
 }
 

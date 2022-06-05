@@ -32,7 +32,8 @@ type createPartnerInput = {
 }
 
 type createClientInput = {
-  visible: boolean,
+  visible: boolean | string,
   name: string,
-  link: string
+  link: string,
+  clientPhoto: any
 }
