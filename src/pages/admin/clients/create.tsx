@@ -34,13 +34,6 @@ function CreateClient(params: any ) {
     <>
       <Container>
         <AdminHeader title={'Adicionar cliente'} />
-        <Row style={{marginBottom: '1em'}}>
-          <Col>
-          <Button outline size='sm' color='secondary' onClick={() => router.back()}>
-            Voltar
-          </Button>
-          </Col>
-        </Row>
         <Form onSubmit={onSubmit}>
           <Row className="d-flex justify-content-center">
             <Col lg={6}>
@@ -90,8 +83,13 @@ function CreateClient(params: any ) {
             </FormGroup>
             </Col>
           </Row>
-          <Row style={{marginTop: '1.5em'}}>
-            <Col style={{textAlign: 'end'}}><Button color='success' >Criar</Button></Col>
+          <Row className="justify-content-end" style={{margin: '1.5em 0'}}>
+            <Col xs="auto">
+              <Button outline color='secondary' onClick={() => router.back()}>
+                Voltar
+              </Button>
+            </Col>
+            <Col xs="auto"><Button submit color='success' >Criar</Button></Col>
           </Row>
         </Form>
       </Container>

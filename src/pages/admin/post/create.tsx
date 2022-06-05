@@ -57,13 +57,6 @@ function CreatePost() {
   <>
   <Container>
     <AdminHeader title='Criar Postagem' />
-    <Row style={{marginBottom: '1em'}}>
-      <Col>
-      <Button outline size='sm' color='secondary' onClick={() => router.back()}>
-        Voltar
-      </Button>
-      </Col>
-    </Row>
     <Form onSubmit={onSubmit}>
       <Row>
         <Col lg={8}>
@@ -104,9 +97,14 @@ function CreatePost() {
           <Inject services={[Toolbar, Image, Link, HtmlEditor, QuickToolbar]} />
       </RichTextEditorComponent>
 
-    <Row style={{marginTop: '1.5em'}}>
-      <Col style={{textAlign: 'end'}}><Button color='success' >Salvar</Button></Col>
-    </Row>
+      <Row className="justify-content-end" style={{margin: '1.5em 0'}}>
+            <Col xs="auto">
+              <Button outline color='secondary' onClick={() => router.back()}>
+                Voltar
+              </Button>
+            </Col>
+            <Col xs="auto"><Button submit color='success' >Criar</Button></Col>
+          </Row>
     </Form>
     
   </Container>
