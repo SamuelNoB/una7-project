@@ -27,10 +27,10 @@ function CreatePost() {
     active: true,
     content: '',
     subtitle: '',
-    coverImage: '',
+    Image: '',
   })
   const router = useRouter()
-  const postCreation = useMutation<createPostInput, any, any>((newPost: createPostInput) => {
+  const postCreation = useMutation((newPost: createPostInput) => {
     return PostService.createPost(newPost)
   }, {onSuccess: () => success() });
 
@@ -87,7 +87,7 @@ function CreatePost() {
         <Col lg={4}>
           <FormGroup>
             <Label>Imagem de capa</Label>
-            <UploaderComponent id='fileUpload' type='file' name='mainImage'selected={value => setPostInput({...postInput, coverImage: value.filesData[0]})} autoUpload={false} />
+            <UploaderComponent id='fileUpload' type='file' name='mainImage'selected={value => setPostInput({...postInput, Image: value.filesData[0]})} autoUpload={false} />
           </FormGroup>
           <FormGroup check>
             <Input type="checkbox" checked={postInput.active as boolean} onChange={e => setPostInput({...postInput, active: !postInput.active})} />

@@ -18,7 +18,7 @@ export default {
   },
   async createClient(payload: createClientInput): Promise<Client | string> {
     const formData = new FormData()
-    formData.append('clientPhoto', payload.clientPhoto?.rawFile);
+    formData.append('Image', payload.Image?.rawFile);
     formData.append('visible',payload.visible.toString());
     formData.append('name', payload.name);
     formData.append('link', payload.link);

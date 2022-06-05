@@ -8,7 +8,7 @@ const multerUpload = multer({
     filename: (req, file, cb) => {
       const fileName = randomUUID();
       const ext = '.'+ mime.extension(file.mimetype);
-      req.body.coverImage =  fileName+ext;
+      req.body.Image =  fileName+ext;
       cb(null, fileName+ext);
     }
   })

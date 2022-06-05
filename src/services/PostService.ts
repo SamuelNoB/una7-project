@@ -2,7 +2,7 @@
 export default {
   createPost(payload: createPostInput) {
     const data = new FormData();
-    data.append('coverImage', payload.coverImage?.rawFile);
+    data.append('Image', payload.Image?.rawFile);
     data.append('active',payload.active.toString());
     data.append('title', payload.title);
     data.append('subtitle', payload.subtitle);

@@ -9,7 +9,7 @@ type ContactInput = {
 type createPostInput = {
   active: boolean | string,
   title: string,
-  coverImage?: string | any,
+  Image?: string | any,
   subtitle: string,
   content: string,
 }
@@ -35,5 +35,5 @@ type createClientInput = {
   visible: boolean | string,
   name: string,
   link: string,
-  clientPhoto: any
+  Image: any
 }

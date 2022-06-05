@@ -48,7 +48,7 @@ async function handler(
         title: data.title,
         active: data.active,
         authorId: user?.id,
-        coverImage: data.coverImage ?? ''
+        coverImage: data.Image ?? ''
       }
     });
 
@@ -58,7 +58,7 @@ async function handler(
   })
 }
 
-const uploadMiddleware = multerUpload.single('coverImage')
+const uploadMiddleware = multerUpload.single('Image')
 apiRoute.use(uploadMiddleware)
 apiRoute.post(handler)
 export default apiRoute

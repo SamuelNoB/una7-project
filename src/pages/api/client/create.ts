@@ -22,7 +22,7 @@ const apiRoute = nextConnect({
 const prisma = new PrismaClient()
 
 
-async function handler(
+async function createClient(
   req: NextApiRequest,
   res: NextApiResponse<Data | Error>
 ) {
@@ -37,7 +37,7 @@ async function handler(
   data.visible = data.visible === 'true' ? true : false;
     const result = await prisma.client.create({
       data: {
-        clientPhoto: data.clientPhoto,
+        clientPhoto: data.Image,
         visible: data.visible,
         name: data.name,
         link: data.link
@@ -45,14 +45,14 @@ async function handler(
     });
 
   return res.status(200).json({
-    message: "Publicação criada com sucesso",
+    message: "Cliente criado com sucesso",
     data: result
   })
 }
 
-const uploadMiddleware = multerUpload.single('clientPhoto')
+const uploadMiddleware = multerUpload.single('Image')
 apiRoute.use(uploadMiddleware)
-apiRoute.post(handler)
+apiRoute.post(createClient)
 export default apiRoute
 
 export const config = {
