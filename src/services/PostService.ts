@@ -24,5 +24,18 @@ export default {
     fetch(`/api/post/get/${id}`, {method: 'GET'})
     .then(response => response.json())
     .then(error => console.log(error))
+  },
+
+  async deletePost(id: string) {
+    const response = await fetch('/api/post/delete', 
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/json'
+      },
+      body: JSON.stringify({id})
+    })
+
+    return await response.json()
   }
 }
