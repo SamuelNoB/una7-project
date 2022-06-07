@@ -29,5 +29,18 @@ export default {
 
     const result = await response.json()
     return response.status === 200 ? result.data : result.error
+  },
+
+  async deleteClient(id: string): Promise<string> {
+    const response = await fetch('/api/client/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'Application/json'
+      },
+      body: JSON.stringify({id})
+    })
+    const result = await response.json()
+    return response.status === 200 ? result.data : result.error 
   }
+
 }

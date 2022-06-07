@@ -3,7 +3,7 @@ import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2
 import { Button, Col, Container, Row } from "reactstrap";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { createRoot } from "react-dom/client";
 import { useQuery } from "react-query";
 
@@ -13,6 +13,7 @@ import AdminHeader from "../../../components/admin/Header";
 import ClientService from "../../../services/ClientService";
 import { useEffect, useState } from "react";
 import { Client } from "@prisma/client";
+import DeleteModal from "../../../components/admin/clients/DeleteModal";
 
 
 
@@ -49,6 +50,8 @@ const columns: column[] = [
 function ClientIndex(params: any) {
   const router = useRouter()
   const [clients, setClients] = useState<Client[]>([])
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [deleteData, setDeleteData] = useState<Partial<Client>>()
   const {data, error} = useQuery('getClients', ClientService.getAllClients)
 
   useEffect(() => {
@@ -58,11 +61,27 @@ function ClientIndex(params: any) {
     }
   }, [data])
 
+  function openDeleteModal(clientData: Client) {
+    setDeleteData(clientData)
+    setDeleteModalIsOpen(!deleteModalIsOpen);
+  }
+
+  function afterDeleted(id: string) {
+    toast.success('Publicação excluida com sucesso', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
+
   function commands(args: any) {
     if (args.column.field === "commands") {
-        const rowData = args.data as SmallPublication
+        const rowData = args.data as Client
         const root = createRoot(args.cell);
-        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={() => {}} />)
+        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
     }
   }
 
@@ -89,6 +108,7 @@ function ClientIndex(params: any) {
     <ToastContainer />
 
     </Container>
+    <DeleteModal open={deleteModalIsOpen} data={deleteData} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
   </>
   )
 }

@@ -8,7 +8,7 @@ const linkStyle = {
 };
 
 const linkProps = {
-  onClick: (e) => {
+  onClick: (e: any) => {
     e.preventDefault();
   },
 };

@@ -29,10 +29,9 @@ function CreatePost() {
     subtitle: '',
     Image: '',
   })
-  const router = useRouter()
-  const postCreation = useMutation((newPost: createPostInput) => {
-    return PostService.createPost(newPost)
-  }, {onSuccess: () => success() });
+  const router = useRouter();
+
+  const postCreation = useMutation((newPost: createPostInput) => { return PostService.createPost(newPost)}, {onSuccess: () => success() });
 
   function success() {
     router.push('/admin');

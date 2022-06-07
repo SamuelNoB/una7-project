@@ -35,7 +35,7 @@ async function handler(
   }
   const user = await prisma.user.findUnique( {
     where: {
-      email: session.user?.email
+      email: session.user?.email as any
     }
   })
 
@@ -47,7 +47,7 @@ async function handler(
         subTitle: data.subtitle,
         title: data.title,
         active: data.active,
-        authorId: user?.id,
+        authorId: user?.id as any,
         coverImage: data.Image ?? ''
       }
     });
