@@ -14,6 +14,7 @@ import 'dayjs/locale/pt-br' // load on demand
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/helper.scss';
+import '../styles/index.scss'
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

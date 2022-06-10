@@ -1,0 +1,15 @@
+@import './variables.scss';
+
+.clients-grid {
+  @include respond-to('small') {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  
+
+  &__item {
+    margin: 6px;
+    text-align: center;
+  }
+}

@@ -14,6 +14,8 @@ import WhatsappItem from "../components/home/Whatsapp";
 
 import PostService from "../services/PostService";
 import dayjs from "dayjs";
+import ClientService from "../services/ClientService";
+import { Client } from "@prisma/client";
 
 const responsive = {
   superLargeDesktop: {
@@ -39,12 +41,19 @@ const responsive = {
 const Home = () => {
 
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
+  const {data: serverClients} = useQuery('getClients', ClientService.getAllClients);
   const [publications, setPublications] = useState<SmallPublication[]>([]);
+  const [clients, setClients] = useState<Client[]>([])
   useEffect(() => {
     if (data) {
       setPublications(data)
     }
-  }, [data])
+    if (serverClients) {
+      setClients(serverClients);
+    }
+  }, [data, serverClients])
+
+
   return (
     <>
       <div style={{height: '100vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
@@ -68,30 +77,21 @@ const Home = () => {
       <Row className="justify-content-center" style={{marginBottom: '2em'}}>
           <Col lg={4} className="fs-2 fw-bold" style={{textAlign: 'center'}}>Clientes</Col>
       </Row>
-      <div>
-        <Row className="justify-content-center" style={{margin: '6px 0'}}>
-          <Col lg={3} style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-          <Col lg={3} style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-          <Col lg={3} style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-        </Row>
-        <Row className="justify-content-center" style={{margin: '6px 0'}}>
-          <Col lg={3} style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-          <Col lg={3} style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-          <Col lg={3}  style={{padding: '0 3px'}}>
-            <ClientCard imageLink="/images/balloon.jpeg" externalLink="https://www.facebook.com/" ></ClientCard>
-          </Col>
-        </Row>
-      </div>
+      <Row className="justify-content-center">
+        <Col lg={9}>
+          <div className="clients-grid">
+            {
+              clients.map(client => {
+                return (
+                  <div key={client.id} className="clients-grid__item">
+                    <ClientCard key={client.id} imageLink={'/uploads/'+client.clientPhoto} externalLink={client.link as string} />
+                  </div>
+                )
+              })
+            }
+          </div>
+        </Col>
+      </Row>
       </Container >
 
       <Container style={{marginTop: '6em'}}>
