@@ -4,9 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdAlternateEmail, MdEmail, MdForwardToInbox, MdLocationOn } from "react-icons/md";
 
 
-import DefaultLayout from "../layouts/DefaultLayout"
 import { Container, Row, Col, Form, FormGroup, Input,Label, Button, Card, CardBody, CardTitle } from "reactstrap";
 import { useState } from "react";
+import { useMutation } from "react-query";
+
+
+import DefaultLayout from "../layouts/DefaultLayout"
+import ContactService from "../services/ContactService";
 
 const alignText = {
   textAlign: 'center'
@@ -19,6 +23,7 @@ interface ContactInput {
   message: string,
 }
 function ContactPage(props: any) {
+  const contactCreation = useMutation((newContact: ContactInput) => {return ContactService.sendMessage(newContact)})
   const [contactInput, setContatInput] = useState<ContactInput>({
     fullName: '',
     email: '',
@@ -27,37 +32,32 @@ function ContactPage(props: any) {
   })
 
 
-  const submitForm = async (e: Event) => {
+  const submitForm = (e: any) => {
     e.preventDefault()
-    const response = await fetch('api/sendMessage', {
-      headers: {
-        'Content-Type': 'application/json',
+    contactCreation.mutate(contactInput, {
+      onSuccess(data, variables, context) {
+        toast.success(data.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
       },
-      method: 'POST',
-      body: JSON.stringify(contactInput),
-    });
-    
-    const data = await response.json();
-    if (data?.error) {
-      toast.error(data.error, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        draggable: true,
-        progress: undefined,
-        });
-      return ;
-    }
-
-    toast.success(data.message, {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      draggable: true,
-      progress: undefined,
-      });
+      onError(error, variables, context) {
+        console.log(error);
+        
+        toast.error(error as string, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
+      },
+    })
   }
 
   return (
@@ -119,6 +119,7 @@ function ContactPage(props: any) {
                   type="text"
                   id='fullName'
                   placeholder="Digite seu nome completo"
+                  required
                   onChange={e => setContatInput({...contactInput, fullName: e.target.value})}></Input>
                 </FormGroup>
                 <FormGroup>
@@ -128,6 +129,7 @@ function ContactPage(props: any) {
                   <Input
                   type="email"
                   id='email'
+                  required
                   placeholder="Digite seu email para contato"
                   onChange={e => setContatInput({...contactInput, email: e.target.value})}
                   />
@@ -137,6 +139,7 @@ function ContactPage(props: any) {
                     Assunto
                   </Label>
                   <Input type="text"
+                  required
                   id='subject'
                   placeholder="Coloque aqui o assunto da mensagem"
                   onChange={e => setContatInput({...contactInput, subject: e.target.value})}
@@ -147,6 +150,7 @@ function ContactPage(props: any) {
                     Mensagem
                   </Label>
                   <Input type="textarea"
+                  required
                   id='message'
                   placeholder="Digite a mensagem que gostaria de enviar"
                   onChange={e => setContatInput({...contactInput, message: e.target.value})}

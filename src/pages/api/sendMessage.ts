@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {Contact, PrismaClient} from '@prisma/client'
+import Error from 'next/error'
 
 
 
@@ -8,9 +9,7 @@ type responseData = {
   message: string
   contactData?: Contact
 }
-type Error = {
-  error: string
-}
+
 const prisma = new PrismaClient()
 export default async function handler(
   req: NextApiRequest,
@@ -18,13 +17,9 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const data: ContactInput = req.body;
-    const {isValid, error} = checkInput(data);
-
-    if (!isValid) {
-        return res.status(401).json({
-          error
-        });
-    }
+    
+    checkInput(data);
+    
     const result = await prisma.contact.create({
       data: {
         content: data.message,
@@ -39,7 +34,7 @@ export default async function handler(
     });
   }
   return res.status(400).json({
-    error: 'Ocorreu um erro ao processar a solicitação.'
+    message: 'Ocorreu um erro ao processar a solicitação.'
   })
 }
 
@@ -59,7 +54,7 @@ function checkInput(contactInput:ContactInput) {
     if (contactInput[field] === '') {
       result.error = errorMessage[field]
       result.isValid = false;
-      return result;
+      throw new Error({statusCode: 402, title: result.error})
     }
   })
   return result;
