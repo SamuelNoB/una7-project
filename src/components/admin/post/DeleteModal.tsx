@@ -32,7 +32,7 @@ function DeleteModal(params: deleteParams) {
         <ModalBody>
           <strong>Título:</strong>{' '}{publication?.title}
           <br />
-          <strong>Criado em: </strong>{' '}{publication?.createdDate}
+          <strong>Criado em: </strong>{' '}{publication?.createdAt}
         </ModalBody>
         <ModalFooter>
           <Button
