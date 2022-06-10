@@ -1,11 +1,9 @@
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardSubtitle, CardText, CardFooter } from "reactstrap";
 
 function BlogCard(params: SmallPublication) {
-  const [createdDateToDisplay] = useState(dayjs(params.createdDate).format('DD/MM/YYYY'))
-  
+  const createdDateToDisplay = dayjs(params.createdAt).format('DD/MM/YYYY');
 
   return (
     

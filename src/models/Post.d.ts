@@ -3,6 +3,6 @@ type SmallPublication = {
   title: string,
   subTitle: string
   coverImage: string
-  createdDate: string
+  createdAt: string
 }
 
