@@ -9,6 +9,7 @@ import type { AppProps } from 'next/app'
 import { registerLicense } from '@syncfusion/ej2-base';
 
 import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import isLeapYear from 'dayjs/plugin/isLeapYear' // import plugin
 import 'dayjs/locale/pt-br' // load on demand
 
@@ -20,6 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 dayjs.locale('pt-br')
+dayjs.extend(localizedFormat)
 dayjs.extend(isLeapYear) // use plugin
 
 import Auth from "../components/auth";

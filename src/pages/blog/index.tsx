@@ -1,38 +1,22 @@
 import DefaultLayout from "../../layouts/DefaultLayout"
 import { Container, Row, Col } from "reactstrap";
-import BlogCardFull from "../../components/BlogCardFull";
+import BlogCard from "../../components/BlogCard"
+import { useQuery } from "react-query";
+import PostService from "../../services/PostService";
+import { useEffect, useState } from "react";
 
-interface PostCard {
-  id: string | number,
-  image: string,
-  title: string,
-  subtitle?: string,
-  createdAt: Date
-}
-function blogIndex(props: any) {
-  const postList: PostCard[] = [
-    {
-      id: 1,
-      title: 'some title',
-      image: 'images/mountain.jpeg',
-      createdAt: new Date(),
-      subtitle: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque inventore nisi adipisci at, facere commodi! Incidunt et voluptatum rem quo earum ex labore laboriosam hic fugit temporibus! Maxime, quibusdam ab.'
-    },
-    {
-      id: 2,
-      title: 'some title 2',
-      image: 'images/balloon.jpeg',
-      createdAt: new Date(),
-      subtitle: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque inventore nisi adipisci at, facere commodi! Incidunt et voluptatum rem quo earum ex labore laboriosam hic fugit temporibus! Maxime, quibusdam ab.'
-    },
-    {
-      id: 3,
-      title: 'some title 3',
-      image: 'images/beach.jpeg',
-      createdAt: new Date(),
-      subtitle: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque inventore nisi adipisci at, facere commodi! Incidunt et voluptatum rem quo earum ex labore laboriosam hic fugit temporibus! Maxime, quibusdam ab.'
+function BlogIndex(props: any) {
+  const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
+
+  const [postList, setPostList] = useState<SmallPublication[]>([])
+
+  useEffect(() => {
+    if (data) {
+      setPostList(data)
     }
-  ]
+
+  }, [data,])
+  
   return (
     <>
       <Container >
@@ -41,23 +25,21 @@ function blogIndex(props: any) {
             <h2 style={{textAlign: 'center'}}>Blog</h2>
           </Col>
         </Row>
-        <Row style={{margin: '24px 0'}}>
-          <Col lg={4}>
-          <BlogCardFull params={postList[0]}></BlogCardFull>
-          </Col>
-          <Col lg={4}>
-          <BlogCardFull params={postList[1]}></BlogCardFull>
-          </Col>
-          <Col lg={4}>
-          <BlogCardFull params={postList[2]}></BlogCardFull>
-          </Col>
+        <Row style={{margin: '2em 0'}} >
+          {
+          postList.map(post => {
+            return (<Col key={post.id} lg={4} style={{margin: '0.8em 0'}}>
+              <BlogCard params={post} full={true} />
+            </Col>)
+          })
+          }
         </Row>
       </Container>
     </>
   )
 }
 
-blogIndex.getLayout = (page: any) => {
+BlogIndex.getLayout = (page: any) => {
   return (
     <DefaultLayout>
       {page}
@@ -65,4 +47,4 @@ blogIndex.getLayout = (page: any) => {
   )
 }
 
-export default blogIndex
+export default BlogIndex

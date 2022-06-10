@@ -8,12 +8,11 @@ import { Container, Row, Col} from "reactstrap";
 
 import DefaultLayout from '../layouts/DefaultLayout'
 import ClientCard from "../components/home/ClientCard";
-import BlogCard from "../components/BlogCard";
+import BlogCard from "../components/BlogCard"
 import PartnerCard from "../components/home/PartnerCard";
 import WhatsappItem from "../components/home/Whatsapp";
 
 import PostService from "../services/PostService";
-import dayjs from "dayjs";
 import ClientService from "../services/ClientService";
 import { Client } from "@prisma/client";
 
@@ -112,7 +111,7 @@ const Home = () => {
                 {publications.map(publication => {
                   return (
                     <div key={publication.id} style={{margin: '0 0.2em'}}>
-                    <BlogCard key={publication.id} {...publication} />
+                    <BlogCard key={publication.id} params={publication} full={false} />
                     </div>
                   )
                 })}

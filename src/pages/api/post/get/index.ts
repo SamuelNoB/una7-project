@@ -32,7 +32,7 @@ async function getAllPosts(req: NextApiRequest, res: NextApiResponse<Data>) {
       createdAt: true
     },
     orderBy: {
-      createdAt: 'asc'
+      createdAt: 'desc'
     }
   });
   return res.status(200).json({posts: allPosts})

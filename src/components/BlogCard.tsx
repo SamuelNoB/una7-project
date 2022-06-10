@@ -1,31 +1,53 @@
+
 import dayjs from "dayjs";
 import Link from "next/link";
-import { Card, CardBody, CardImg, CardTitle, CardSubtitle, CardText, CardFooter } from "reactstrap";
+import { useState } from "react";
+import { Card, CardBody, CardImg, CardTitle, CardText, CardFooter, CardFooterProps } from "reactstrap";
 
-function BlogCard(params: SmallPublication) {
-  const createdDateToDisplay = dayjs(params.createdAt).format('DD/MM/YYYY');
+interface props {
+  params: SmallPublication
+  full: boolean
+}
 
+function BlogCard({params, full}: props) {
+  full = full ?? true;
+  
+  const dateType = full ? 'LLL' : 'DD/MM/YYYY'
+  const minMax = full ? '200px': '150px';
+  const displayDate = dayjs(params.createdAt).format(dateType);
   return (
     
-      <Link href={`/blog/post/${params.id}`} passHref>
+      <Link href={'/blog/post/[id]'} as={`blog/post/${params.id}`} passHref >
         <Card
         className="hoverClass"
         color="light"
-          >
+        >
           <CardImg
-          src={'/uploads/'+params.coverImage}
+          src={'uploads/'+params.coverImage}
           top
           width={'100%'}
-          height={'200px'}
+          style={{minHeight: '200px', maxHeight: '200px', objectFit: 'cover'}}
           />
-          <CardBody>
+          <CardBody style={{minHeight: minMax, maxHeight: minMax}}>
             <CardTitle tag={'h4'}>
               {params.title}
             </CardTitle>
-            <br />
-            <br />
-            <CardText className="text-muted">Postado Em: {createdDateToDisplay}</CardText>
+            {
+              full === true ? (
+              <CardText style={{height: '100%'}} className="text-truncate">
+                {params.subTitle}
+              </CardText>
+              ) :(
+                <>
+                  
+                </>
+              )
+            }
+            
           </CardBody>
+          <CardFooter  className="text-muted">
+            Postado Em: {displayDate}
+          </CardFooter>
         </Card>
       </Link>
   );
