@@ -56,7 +56,7 @@ function AdminIndex(props: any) {
       
       const parsedData = data.map( aPost => 
         ({...aPost, 
-          createdDate: dayjs(aPost.createdDate).format('DD/MM/YYYY')
+          createdDate: dayjs(aPost.createdAt).format('DD/MM/YYYY')
         }))
       setPosts(parsedData);
     }

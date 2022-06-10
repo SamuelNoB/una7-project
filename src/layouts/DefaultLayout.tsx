@@ -50,7 +50,7 @@ export default function DefaultLayout({children, fixed}: any) {
       expand="lg"
       light
       fixed={fixed}
-      style={{backgroundColor: '#e3e3e363'}}
+      style={{backgroundColor: '#d8d8d880'}}
 
     >
       <NavbarBrand href="/">
@@ -64,31 +64,31 @@ export default function DefaultLayout({children, fixed}: any) {
           navbar
         >
           <NavItem>
-            <NavLink href="/" style={linkStyle}>
+            <NavLink className="hoverClassForButtons" href="/" style={linkStyle}>
               Home
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/blog" style={linkStyle}>
+            <NavLink className="hoverClassForButtons" href="/blog" style={linkStyle}>
               Blog
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/contact" style={linkStyle}>
+            <NavLink className="hoverClassForButtons" href="/contact" style={linkStyle}>
               Contato
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-                  <NavLink style={ {...style, ...linkStyle} } href="https://www.facebook.com/agenciauna7" target="_blank">
+                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.facebook.com/agenciauna7" target="_blank">
                     <BsFacebook size={20}/>
                   </NavLink>
-                  <NavLink style={ {...style, ...linkStyle} } href="https://www.linkedin.com/in/agenciauna7/" target="_blank">
+                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.linkedin.com/in/agenciauna7/" target="_blank">
                     <BsLinkedin size={20} />
                   </NavLink>
-                  <NavLink style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsInstagram size={20} />
                   </NavLink>
-                  <NavLink style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsTwitter size={20} />
                   </NavLink>
           </NavItem>
