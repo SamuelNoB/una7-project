@@ -2,7 +2,6 @@ import nextConnect from 'next-connect'
 import { getSession } from "next-auth/react"
 import { PrismaClient, Publication } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import multerUpload from '../../../core/multerConfig'
 import multiparty from 'multiparty';
 import {convertImage} from '../../../core/imageConverter';
 
@@ -79,7 +78,6 @@ async function handler(
   })
 }
 
-const uploadMiddleware = multerUpload.single('Image')
 apiRoute.post(handler)
 export default apiRoute
 
