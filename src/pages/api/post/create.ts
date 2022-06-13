@@ -3,6 +3,8 @@ import { getSession } from "next-auth/react"
 import { PrismaClient, Publication } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import multerUpload from '../../../core/multerConfig'
+import multiparty from 'multiparty';
+import {convertImage} from '../../../core/imageConverter';
 
 type Data = {
   message: string
@@ -20,7 +22,10 @@ const apiRoute = nextConnect({
 })
 
 const prisma = new PrismaClient()
-
+type promiseDataInput = {
+  data: createPostInput,
+  image: any
+}
 
 async function handler(
   req: NextApiRequest,
@@ -39,7 +44,22 @@ async function handler(
     }
   })
 
-  const data: createPostInput = req.body;
+  const form = new multiparty.Form({autoFields: true, autoFiles: true});
+  const {data, image} = await new Promise<promiseDataInput>((resolve, rejects) => {
+    form.parse(req, (err, fields, files) => {
+      const parsedData = {
+        active: fields.active[0],
+        title: fields.title[0],
+        subtitle: fields.subtitle[0],
+        content: fields.content[0],
+        Image: files.Image[0]
+      }
+      resolve({data: parsedData, image: files.Image[0]});
+    });
+  });
+
+  data.Image = await convertImage(image.path)
+
   data.active = data.active === 'true' ? true : false;
     const result = await prisma.publication.create({
       data: {
@@ -48,7 +68,8 @@ async function handler(
         title: data.title,
         active: data.active,
         authorId: user?.id as any,
-        coverImage: data.Image ?? ''
+        coverImage: data.Image ?? '',
+        imageType: image.headers['content-type']
       }
     });
 
@@ -59,7 +80,6 @@ async function handler(
 }
 
 const uploadMiddleware = multerUpload.single('Image')
-apiRoute.use(uploadMiddleware)
 apiRoute.post(handler)
 export default apiRoute
 

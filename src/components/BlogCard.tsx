@@ -23,7 +23,7 @@ function BlogCard({params, full}: props) {
         color="light"
         >
           <CardImg
-          src={'uploads/'+params.coverImage}
+          src={`data:${params.imageType};base64, ${params.coverImage}`}
           top
           width={'100%'}
           style={{minHeight: '200px', maxHeight: '200px', objectFit: 'cover'}}
