@@ -12,6 +12,7 @@ const prisma = new PrismaClient()
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
+  secret: process.env.AUTH_SECRET,
   theme: {
     colorScheme: "light",
   },
