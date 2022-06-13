@@ -6,7 +6,8 @@ interface ClientCardProps {
   width?: number;
   height?: number
   externalLink: string
-  imageLink: string
+  imageLink: string,
+  imageType: string
 }
 
 function ClientCard(params: ClientCardProps) {
@@ -23,7 +24,7 @@ function ClientCard(params: ClientCardProps) {
   return (
   <div className="hoverClass">
     <Link href={params.externalLink} passHref>
-      <Image src={params.imageLink} alt="client" width={imageHeight} height={imageWidth} layout='responsive' />
+      <Image src={`data:${params.imageType};base64, ${params.imageLink}`} alt="client" width={imageHeight} height={imageWidth} layout='responsive' />
     </Link>
   </div>
   )

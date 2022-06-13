@@ -83,7 +83,7 @@ const Home = () => {
               clients.map(client => {
                 return (
                   <div key={client.id} className="clients-grid__item">
-                    <ClientCard key={client.id} imageLink={'/uploads/'+client.clientPhoto} externalLink={client.link as string} />
+                    <ClientCard key={client.id} imageType={client.photoType} imageLink={client.clientPhoto} externalLink={client.link as string} />
                   </div>
                 )
               })
