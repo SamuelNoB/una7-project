@@ -3,7 +3,8 @@ import { getSession } from "next-auth/react"
 import { PrismaClient, Client } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import multerUpload from '../../../core/multerConfig'
-
+import multiparty from 'multiparty';
+import {convertImage} from '../../../core/imageConverter';
 type Data = {
   message: string
   data: Client
@@ -21,7 +22,10 @@ const apiRoute = nextConnect({
 
 const prisma = new PrismaClient()
 
-
+type promiseDataInput = {
+  data: createClientInput,
+  image: any
+}
 async function createClient(
   req: NextApiRequest,
   res: NextApiResponse<Data | Error>
@@ -32,12 +36,26 @@ async function createClient(
       error: 'Você não pode acessar essa rota'
     })
   }
+  const form = new multiparty.Form({autoFields: true, autoFiles: true});
 
-  const data: createClientInput = req.body;
+  const {data, image} = await new Promise<promiseDataInput>((resolve, rejects) => {
+    form.parse(req, (err, fields, files) => {
+      const parsedData = {
+        visible: fields.visible[0],
+        name: fields.name[0],
+        link: fields.link[0],
+        Image: files.Image[0]
+      }
+      resolve({data: parsedData ,image: files.Image[0]});
+    });
+  });
+  data.Image = await convertImage(image.path)
+
   data.visible = data.visible === 'true' ? true : false;
     const result = await prisma.client.create({
       data: {
         clientPhoto: data.Image,
+        photoType: image.headers['content-type'],
         visible: data.visible,
         name: data.name,
         link: data.link
@@ -50,8 +68,8 @@ async function createClient(
   })
 }
 
-const uploadMiddleware = multerUpload.single('Image')
-apiRoute.use(uploadMiddleware)
+//const uploadMiddleware = multerUpload.single('Image')
+//apiRoute.use(uploadMiddleware)
 apiRoute.post(createClient)
 export default apiRoute
 

@@ -46,7 +46,7 @@ async function deleteClient(
   });
 
   return res.status(200).json({
-    message: "Cliente criado com sucesso",
+    message: "Cliente deletado com sucesso",
   })
 }
 

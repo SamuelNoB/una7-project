@@ -62,6 +62,7 @@ model Publication {
   title         String
   subTitle      String
   coverImage    String        // imagem de capa da publicação
+  imageType     String      @default("")
   content       String
 
   createdAt     DateTime    @default(now())
@@ -77,7 +78,8 @@ model Partner {
   name          String
   link          String
   active        Boolean     @default(true)
-  image         String// se relaciona com o model File
+  image         String      // se relaciona com o model File
+  imageType     String      @default("")
 }
 
 model Client {
@@ -85,6 +87,7 @@ model Client {
   visible       Boolean     @default(true)
   name          String
   clientPhoto   String
+  photoType     String      @default("")
   link          String?
 }
 
