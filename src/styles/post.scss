@@ -2,7 +2,11 @@
 
 .post-container {
   margin: 5em auto;
-  width: 920px;
+  width: 60vw;
+
+  img {
+    width: 100%;
+  }
   @include respond-to('medium') {
     margin: 4em 1em;
     font-size: 2em;

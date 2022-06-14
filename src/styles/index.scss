@@ -1,4 +1,5 @@
 @import './variables.scss';
+@import './post.scss';
 
 .clients-grid {
   @include respond-to('small') {
