@@ -1,0 +1,16 @@
+@import './variables.scss';
+
+.post-container {
+  margin: 5em auto;
+  width: 920px;
+  @include respond-to('medium') {
+    margin: 4em 1em;
+    font-size: 2em;
+    width: auto;
+  }
+  @include respond-to('small') {
+    margin: 4em 1em;
+    font-size: 1.2em;
+    width: auto;
+  }
+}

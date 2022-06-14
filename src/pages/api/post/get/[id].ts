@@ -21,12 +21,18 @@ const prisma = new PrismaClient()
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   let {id}: any = req.query
   id = Number(id)
-  const result = await prisma.publication.findUnique({
-    where: {
-      id
-    }
-  });
-  if (result) {
+  let result
+  try {
+    result= await prisma.publication.findUnique({
+      where: {
+        id
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    
+  }
+  if (!result) {
     return res.status(400).json({
       error: 'não foi encontrado nenhuma publicaçao'
     });

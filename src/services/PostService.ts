@@ -21,10 +21,14 @@ export default {
     return result.posts as SmallPublication[]
   },
 
-  getOnePost(id: string) {
-    fetch(`/api/post/get/${id}`, {method: 'GET'})
-    .then(response => response.json())
-    .then(error => console.log(error))
+  async getOnePost({queryKey}: any) {
+    const [_, {id}] = queryKey
+    if (id) {
+      const response = await fetch(`/api/post/get/${id}`, {method: 'GET'})
+      const body = await response.json()
+      return body.data
+    }
+    return {}
   },
 
   async deletePost(id: string) {
