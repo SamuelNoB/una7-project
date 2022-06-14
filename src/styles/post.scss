@@ -3,9 +3,13 @@
 .post-container {
   margin: 5em auto;
   width: 60vw;
+  
+  &__content {
+    margin: 0 0 2em 0;
+  }
 
-  img {
-    width: 100%;
+  .e-rte-image.e-imginline {
+    max-width: 100%;
   }
   @include respond-to('medium') {
     margin: 4em 1em;
