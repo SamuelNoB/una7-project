@@ -1,6 +1,7 @@
-import { PrismaClient,Publication } from '@prisma/client'
+import { Publication } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nextConnect from 'next-connect'
+import prisma from '@core/db'
 
 type Data = {
   posts: Partial<Publication>[]
@@ -16,8 +17,6 @@ const apiRoute = nextConnect({
     error: 'Ocorreu um erro ao processar a solicitação.'
   })}
 })
-
-const prisma = new PrismaClient()
 
 async function getAllPosts(req: NextApiRequest, res: NextApiResponse<Data>) {
   const allPosts = await prisma.publication.findMany({

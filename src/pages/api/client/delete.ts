@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect'
 import { getSession } from "next-auth/react"
-import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import prisma from '@core/db';
 
 type Data = {
   message: string
@@ -16,8 +16,6 @@ const apiRoute = nextConnect({
     error: 'Ocorreu um erro ao processar a solicitação.'
   })}
 })
-
-const prisma = new PrismaClient()
 
 async function deleteClient(
   req: NextApiRequest,

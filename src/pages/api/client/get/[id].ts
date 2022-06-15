@@ -1,4 +1,5 @@
-import { PrismaClient, Client } from '@prisma/client'
+import { Client } from '@prisma/client'
+import prisma from '../../../../core/db'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nextConnect from 'next-connect'
 
@@ -16,7 +17,6 @@ const apiRoute = nextConnect({
     error: 'Ocorreu um erro ao processar a solicitação.'
   })}
 })
-const prisma = new PrismaClient()
 
 async function getClient(req: NextApiRequest, res: NextApiResponse) {
   let {id}: any = req.query

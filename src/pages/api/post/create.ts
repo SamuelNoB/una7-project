@@ -1,10 +1,10 @@
 import nextConnect from 'next-connect'
 import { getSession } from "next-auth/react"
-import { PrismaClient, Publication } from '@prisma/client'
+import { Publication } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import multiparty from 'multiparty';
 import {convertImage} from '../../../core/imageConverter';
-
+import prisma from '@core/db'
 type Data = {
   message: string
   data: Publication
@@ -20,7 +20,6 @@ const apiRoute = nextConnect({
   })}
 })
 
-const prisma = new PrismaClient()
 type promiseDataInput = {
   data: createPostInput,
   image: any

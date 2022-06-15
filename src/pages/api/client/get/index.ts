@@ -1,7 +1,7 @@
-import { PrismaClient,Client } from '@prisma/client'
+import { Client } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nextConnect from 'next-connect'
-
+import prisma from "../../../../core/db";
 type Data = {
   clients: Partial<Client>[]
 }
@@ -17,7 +17,6 @@ const apiRoute = nextConnect({
   })}
 })
 
-const prisma = new PrismaClient()
 
 async function getClients(req: NextApiRequest, res: NextApiResponse) {
   const clients = await prisma.client.findMany({
