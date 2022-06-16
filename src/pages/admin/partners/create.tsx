@@ -36,7 +36,7 @@ function CreatePartner() {
 
   function onSubmit(event: any) {
     event.preventDefault()
-    partnerCreation.mutate(partnerInput, {onSuccess: () => success() })
+    partnerCreation.mutate(partnerInput)
   }
 
 

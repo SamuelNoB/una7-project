@@ -67,7 +67,7 @@ function ClientIndex(params: any) {
   }
 
   function afterDeleted(id: string) {
-    toast.success('Publicação excluida com sucesso', {
+    toast.success('Cliente excluido com sucesso', {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,

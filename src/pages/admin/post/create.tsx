@@ -48,7 +48,7 @@ function CreatePost() {
 
   function onSubmit(event: any) {
     event.preventDefault()
-    postCreation.mutate(postInput, {onSuccess: () => success() })
+    postCreation.mutate(postInput)
   }
 
 

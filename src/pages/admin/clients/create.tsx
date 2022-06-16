@@ -7,6 +7,7 @@ import AdminHeader from "../../../components/admin/Header"
 import AdminLayout from "../../../layouts/AdminLayout"
 import { useMutation } from "react-query";
 import ClientService from "../../../services/ClientService";
+import { toast } from "react-toastify";
 
 
 function CreateClient(params: any ) {
@@ -24,6 +25,15 @@ function CreateClient(params: any ) {
     e.preventDefault()
     createClient.mutate(createClientData, {
       onSuccess: () => {
+        const message = 'Cliente criado com sucesso!'
+        toast.success(message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
         router.push('/admin/clients/')
       }
     })

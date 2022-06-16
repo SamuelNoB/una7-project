@@ -35,7 +35,7 @@ const columns: column[] = [
     width: '150'
   },
   {
-    field: 'active',
+    field: 'activeText',
     headerText: 'Ativo',
     width: '80'
   },
@@ -54,7 +54,7 @@ function PartnerIndex(props: any) {
   const [partners, setPartners] = useState<Partner[]>([]);
   useEffect(() => {
     if (data) {
-      setPartners(data.data);
+      setPartners(data.data.map((partner: any) => {return {...partner, activeText: partner.active ? 'Sim': 'Não'}}));
     }
   }
   , [data])
