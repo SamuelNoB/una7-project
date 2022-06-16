@@ -41,7 +41,7 @@ const Home = () => {
 
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
   const {data: serverClients} = useQuery('getClients', ClientService.getAllClients);
-  const [publications, setPublications] = useState<Partner[]>([]);
+  const [publications, setPublications] = useState<SmallPublication[]>([]);
   const [clients, setClients] = useState<Client[]>([])
   useEffect(() => {
     if (data) {
