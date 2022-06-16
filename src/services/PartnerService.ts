@@ -35,7 +35,7 @@ export default {
       }
     })
 
-    const response = await fetch('api/partner/put', {
+    const response = await fetch('/api/partner/put', {
       method: 'PUT',
       body: data
     });
@@ -44,7 +44,7 @@ export default {
   },
 
   async deletePartner(id: string) {
-    const response = await fetch('api/partner/delete', {
+    const response = await fetch('/api/partner/delete', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json'
