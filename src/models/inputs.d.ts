@@ -19,6 +19,7 @@ type updatePostInput = {
   title?: string,
   subtitle?: string,
   content?: string,
+  Image?: string | any,
 }
 type updatePostBody = {
   id: number,
@@ -28,7 +29,14 @@ type updatePostBody = {
 type createPartnerInput = {
   name: string,
   link: string,
-  active: boolean,
+  Image: string | any,
+}
+
+type updatePartnerInput = {
+  name?: string,
+  link?: string,
+  active?: boolean,
+  image?: string | any,
 }
 
 type createClientInput = {
