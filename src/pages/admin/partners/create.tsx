@@ -1,6 +1,5 @@
 import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
-import { ToastContainer, toast } from 'react-toastify';
-import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar, ToolbarSettingsModel } from '@syncfusion/ej2-react-richtexteditor';
+import { toast } from 'react-toastify';
 import { NextPage } from "next"
 import { useRouter } from 'next/router';
 import { useState } from 'react';

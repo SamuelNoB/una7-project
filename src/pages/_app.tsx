@@ -26,6 +26,7 @@ dayjs.extend(localizedFormat)
 dayjs.extend(isLeapYear) // use plugin
 
 import Auth from "../components/auth";
+import { ToastContainer } from "react-toastify";
 const syncFusionKey = process.env.NEXT_PUBLIC_SYNCFUSION_KEY ?? '';
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode,
@@ -42,18 +43,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
-  <QueryClientProvider client={queryClient}>
-    <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
-          {getLayout(<Component {...pageProps} />)}
-        </Auth>
-      ) :
-      (getLayout(<Component {...pageProps} />))
-      }
-      <ReactQueryDevtools initialIsOpen={false} />
-    </SessionProvider>
-  </QueryClientProvider>
+    <>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider session={session}>
+        {Component.auth ? (
+          <Auth>
+            {getLayout(<Component {...pageProps} />)}
+          </Auth>
+        ) :
+        (getLayout(<Component {...pageProps} />))
+        }
+        <ReactQueryDevtools initialIsOpen={false} />
+      </SessionProvider>
+    </QueryClientProvider>
+    <ToastContainer />
+  </>
   )
 }
 

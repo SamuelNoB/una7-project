@@ -3,7 +3,7 @@ import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2
 import { Button, Col, Container, Row } from "reactstrap";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { createRoot } from "react-dom/client";
 import { useQuery } from "react-query";
 
@@ -105,8 +105,6 @@ function ClientIndex(params: any) {
         }
       </ColumnsDirective>
     </GridComponent>
-    <ToastContainer />
-
     </Container>
     <DeleteModal open={deleteModalIsOpen} data={deleteData} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
   </>

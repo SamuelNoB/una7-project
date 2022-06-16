@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import dayjs from 'dayjs';
 import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2-react-grids';
 import { AiOutlinePlus } from "react-icons/ai";
-import { toast, ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 
 import AdminHeader from "@components/admin/Header"
 import AdminLayout from "../../../layouts/AdminLayout"
@@ -107,7 +107,6 @@ function PartnerIndex(props: any) {
         }
       </ColumnsDirective>
     </GridComponent>
-    <ToastContainer />
   </Container>
   <DeleteModal open={deleteModalIsOpen} data={deleteData} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
   </>

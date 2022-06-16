@@ -1,5 +1,5 @@
 import { BsTelephone } from "react-icons/bs";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdAlternateEmail, MdEmail, MdForwardToInbox, MdLocationOn } from "react-icons/md";
 
@@ -168,7 +168,6 @@ function ContactPage(props: any) {
           </Card>
         </Col>
       </Row>
-      <ToastContainer />
     </Container>
   </>
   )
