@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardText, CardFooter, CardFooterProps } from "reactstrap";
 
 interface props {
-  params: SmallPublication
+  params: Partner
   full: boolean
 }
 

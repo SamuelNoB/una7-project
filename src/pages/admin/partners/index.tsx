@@ -7,14 +7,15 @@ import { ColumnDirective, ColumnsDirective, GridComponent} from '@syncfusion/ej2
 import { AiOutlinePlus } from "react-icons/ai";
 import { toast, ToastContainer } from "react-toastify"
 
-import AdminHeader from "../../components/admin/Header"
-import AdminLayout from "../../layouts/AdminLayout"
-import PostService from '../../services/PostService'
+import AdminHeader from "@components/admin/Header"
+import AdminLayout from "../../../layouts/AdminLayout"
+import PartnerService from '@services/PartnerService'
 import { useEffect, useState } from "react";
-import Commands from "../../components/admin/post/Commands";
+import Commands from "@components/admin/post/Commands";
 
 import { createRoot } from 'react-dom/client';
-import DeleteModal from "../../components/admin/post/DeleteModal";
+import DeleteModal from "@components/admin/partners/DeleteModal";
+import { Partner } from ".prisma/client";
 
 type column = {
   field: string,
@@ -25,17 +26,17 @@ type column = {
 const columns: column[] = [
   {
     field: 'id',
-    headerText: 'ID Publicação',
+    headerText: 'ID do parceiro',
     width: '50'
   },
   {
-    field: 'title',
-    headerText: 'Título',
+    field: 'name',
+    headerText: 'Nome',
     width: '150'
   },
   {
-    field: 'createdDate',
-    headerText: 'Criado em',
+    field: 'active',
+    headerText: 'Ativo',
     width: '80'
   },
   {
@@ -44,27 +45,22 @@ const columns: column[] = [
     width: '80'
   }
 ]
-function AdminIndex(props: any) {
+function PartnerIndex(props: any) {
 
   const router = useRouter()
-  const {data, error} = useQuery('getAllPost', PostService.getAllPost);
+  const {data, error} = useQuery('getAllPartners', PartnerService.getAll);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [deleteData, setDeleteData] = useState<Partner>()
-  const [posts, setPosts] = useState<Partner[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
   useEffect(() => {
     if (data) {
-      
-      const parsedData = data.map( aPost => 
-        ({...aPost, 
-          createdDate: dayjs(aPost.createdAt).format('DD/MM/YYYY')
-        }))
-      setPosts(parsedData);
+      setPartners(data.data);
     }
   }
   , [data])
 
-  function openDeleteModal(publicationData: Partner) {
-    setDeleteData(publicationData)
+  function openDeleteModal(partnerData: Partner) {
+    setDeleteData(partnerData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
 
@@ -75,7 +71,7 @@ function AdminIndex(props: any) {
         root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
     }
   }
-  function afterDeleted(id: string) {
+  function afterDeleted(id: number) {
     toast.success('Publicação excluida com sucesso', {
       position: "top-center",
       autoClose: 3000,
@@ -85,24 +81,24 @@ function AdminIndex(props: any) {
       progress: undefined,
       });
   
-    const postIndex =  posts.findIndex(post => post.id === id)
-    posts.splice(postIndex,1);
-    setPosts([...posts]);
+    const partnerIndex =  partners.findIndex(partner => partner.id === id)
+    partners.splice(partnerIndex,1);
+    setPartners([...partners]);
   }
 
   return (
   <>
   <Container>
-    <AdminHeader title={'Publicações'} />
+    <AdminHeader title={'Parceiros'} />
 
     <Row style={{marginBottom: '1.5em'}}>
       <Col style={{textAlign: 'end'}}>
-        <Button style={{backgroundColor: 'rgba(169, 81, 139, 1)'}} onClick={() => router.push('/admin/post/create')}>
-        <AiOutlinePlus /> Criar Publicação
+        <Button style={{backgroundColor: 'rgba(169, 81, 139, 1)'}} onClick={() => router.push('/admin/partners/create')}>
+        <AiOutlinePlus /> Criar Parceiro
         </Button>
       </Col>
     </Row>
-    <GridComponent dataSource={posts} queryCellInfo={commands}>
+    <GridComponent dataSource={partners} queryCellInfo={commands}>
       <ColumnsDirective>
         {
           columns.map(column => {
@@ -119,7 +115,7 @@ function AdminIndex(props: any) {
 }
 
 
-AdminIndex.getLayout = (page: NextPage) => {
+PartnerIndex.getLayout = (page: NextPage) => {
   return (
     <AdminLayout>
       {page}
@@ -127,5 +123,5 @@ AdminIndex.getLayout = (page: NextPage) => {
   )
 }
 
-AdminIndex.auth = true;
-export default AdminIndex
+PartnerIndex.auth = true;
+export default PartnerIndex

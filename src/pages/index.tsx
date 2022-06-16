@@ -41,7 +41,7 @@ const Home = () => {
 
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
   const {data: serverClients} = useQuery('getClients', ClientService.getAllClients);
-  const [publications, setPublications] = useState<SmallPublication[]>([]);
+  const [publications, setPublications] = useState<Partner[]>([]);
   const [clients, setClients] = useState<Client[]>([])
   useEffect(() => {
     if (data) {
@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <>
-      <div style={{height: '100vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+      <div style={{height: '95vh', backgroundImage:`url(/images/camp.jpeg)`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
           <Row className="h-100 w-100 justify-content-center align-items-center" style={{backgroundColor: '#FFF3', margin: 0}}>
             <Row className='justify-content-center w-100' >
               <Col lg={3} style={{textAlign: 'center'}} className='fs-2 fw-bold'>Bem vindo a agência Una7</Col>

@@ -29,6 +29,7 @@ type updatePostBody = {
 type createPartnerInput = {
   name: string,
   link: string,
+  active: boolean
   Image: string | any,
 }
 

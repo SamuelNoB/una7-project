@@ -4,6 +4,7 @@ export default {
     const data = new FormData();
     data.append('Image', payload.Image?.rawFile);
     data.append('name',payload.name);
+    data.append('active',payload.active.toString());
     data.append('link', payload.link);
     const response = await fetch('/api/partner/create', {
       method: 'POST',
@@ -14,7 +15,7 @@ export default {
   },
 
   async getAll() {
-    const response = await fetch('api/partner/get', {
+    const response = await fetch('/api/partner/get', {
       method: 'GET',
     });
     const result = await response.json();

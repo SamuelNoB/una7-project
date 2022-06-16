@@ -43,6 +43,7 @@ async function handler(
       const parsedData = {
         name: fields.name[0],
         link: fields.link[0],
+        active: fields.active[0] === 'true'? true: false,
         Image: files.Image[0]
       }
       resolve({data: parsedData, image: files.Image[0]});
@@ -50,11 +51,11 @@ async function handler(
   });
 
   data.Image = await convertImage(image.path)
-
   const result = await prisma.partner.create({
     data: {
       name: data.name,
       link: data.link,
+      active: data.active,
       image: data.Image ?? '',
       imageType: image.headers['content-type']
     }

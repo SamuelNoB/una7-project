@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 function BlogIndex(props: any) {
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
 
-  const [postList, setPostList] = useState<SmallPublication[]>([])
+  const [postList, setPostList] = useState<Partner[]>([])
 
   useEffect(() => {
     if (data) {
