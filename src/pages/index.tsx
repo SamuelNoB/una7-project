@@ -87,11 +87,14 @@ const Home = () => {
           <div className="clients-grid">
             {
               clients.map(client => {
-                return (
-                  <div key={client.id} className="clients-grid__item">
-                    <ClientCard key={client.id} imageType={client.photoType} imageLink={client.clientPhoto} externalLink={client.link as string} />
-                  </div>
-                )
+                if (client.visible) {
+                  return (
+                    <div key={client.id} className="clients-grid__item">
+                      <ClientCard key={client.id} imageType={client.photoType} imageLink={client.clientPhoto} externalLink={client.link as string} />
+                    </div>
+                  )
+                }
+                
               })
             }
           </div>
@@ -115,11 +118,13 @@ const Home = () => {
             <Col lg={9}>
               <Carousel responsive={responsive}>
                 {publications.map(publication => {
-                  return (
-                    <div key={publication.id} style={{margin: '0 0.2em'}}>
-                    <BlogCard key={publication.id} params={publication} full={false} />
-                    </div>
-                  )
+                  if (publication.active) {
+                    return (
+                      <div key={publication.id} style={{margin: '0 0.2em'}}>
+                      <BlogCard key={publication.id} params={publication} full={false} />
+                      </div>
+                    )
+                  }
                 })}
               </Carousel>
             </Col>
@@ -135,11 +140,14 @@ const Home = () => {
             <Carousel responsive={responsive}  >
               {
                 partners.map(partner => {
-                  return (
-                    <div key={partner.id} style={{margin: '0 0.2em'}}>
-                      <PartnerCard {...partner} />
-                    </div>
-                  )
+                  if (partner.active) {
+                    return (
+                      <div key={partner.id} style={{margin: '0 0.2em'}}>
+                        <PartnerCard {...partner} />
+                      </div>
+                    )
+                  }
+                  
                 })
               }
 

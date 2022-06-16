@@ -18,7 +18,7 @@ export default {
   async getAllPost()  {
     const data = await fetch('/api/post/get', {method: 'GET'})
     const result = await data.json()
-    return result.posts as Partner[]
+    return result.posts as SmallPublication[]
   },
 
   async getOnePost({queryKey}: any) {
