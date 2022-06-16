@@ -1,22 +1,25 @@
+import { Partner } from "@prisma/client";
 import Link from "next/link";
 import { Card, CardImg, CardTitle, CardImgOverlay } from "reactstrap";
 
-export default function PartnerCard(params: any) {
+
+
+export default function PartnerCard(params: Partner) {
   return (
     <Link
-      href={'https://www.youtube.com/'}
+      href={params.link}
       passHref
       >
       <Card inverse style={{height:'45vh'}} className="hoverClass">
         <CardImg
-        style={{height: "100%"}}
+        style={{height: "100%", objectFit: 'cover'}}
         width={'100%'}
         
-        src={'/images/rocket2.jpg'}
+        src={`data:${params.imageType};base64, ${params.image}`}
         />
         <CardImgOverlay>
           <CardTitle tag='h3'>
-            Parceiro 1
+            {params.name}
           </CardTitle>
         </CardImgOverlay>
       </Card>

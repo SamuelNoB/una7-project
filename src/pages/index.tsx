@@ -14,7 +14,8 @@ import WhatsappItem from "../components/home/Whatsapp";
 
 import PostService from "../services/PostService";
 import ClientService from "../services/ClientService";
-import { Client } from "@prisma/client";
+import { Client, Partner } from "@prisma/client";
+import PartnerService from "@services/PartnerService";
 
 const responsive = {
   superLargeDesktop: {
@@ -41,8 +42,10 @@ const Home = () => {
 
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
   const {data: serverClients} = useQuery('getClients', ClientService.getAllClients);
+  const {data: serverPartners} = useQuery('getPartners', PartnerService.getAll);
   const [publications, setPublications] = useState<SmallPublication[]>([]);
   const [clients, setClients] = useState<Client[]>([])
+  const [partners, setPartners] = useState<Partner[]>([])
   useEffect(() => {
     if (data) {
       setPublications(data)
@@ -50,7 +53,10 @@ const Home = () => {
     if (serverClients) {
       setClients(serverClients);
     }
-  }, [data, serverClients])
+    if (serverPartners) {
+      setPartners(serverPartners.data)
+    }
+  }, [data, serverClients, serverPartners])
 
 
   return (
@@ -127,15 +133,16 @@ const Home = () => {
         <Row className="justify-content-center">
           <Col lg={9}>
             <Carousel responsive={responsive}  >
-              <div style={{margin: '0 0.2em'}}>
-                <PartnerCard />
-              </div>
-              <div style={{margin: '0 0.2em'}}>
-                <PartnerCard />
-              </div>
-              <div style={{margin: '0 0.2em'}}>
-                <PartnerCard />
-              </div>
+              {
+                partners.map(partner => {
+                  return (
+                    <div key={partner.id} style={{margin: '0 0.2em'}}>
+                      <PartnerCard {...partner} />
+                    </div>
+                  )
+                })
+              }
+
             </Carousel>
           </Col>
         </Row>
