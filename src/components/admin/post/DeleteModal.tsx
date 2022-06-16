@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { MouseEventHandler, useEffect, useState } from "react"
 import { useMutation } from "react-query"
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
@@ -32,7 +33,7 @@ function DeleteModal(params: deleteParams) {
         <ModalBody>
           <strong>Título:</strong>{' '}{publication?.title}
           <br />
-          <strong>Criado em: </strong>{' '}{publication?.createdAt}
+          <strong>Criado em: </strong>{' '}{dayjs(publication?.createdAt).format()}
         </ModalBody>
         <ModalFooter>
           <Button

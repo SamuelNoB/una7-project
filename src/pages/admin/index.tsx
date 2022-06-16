@@ -49,8 +49,8 @@ function AdminIndex(props: any) {
   const router = useRouter()
   const {data, error} = useQuery('getAllPost', PostService.getAllPost);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const [deleteData, setDeleteData] = useState<Partner>()
-  const [posts, setPosts] = useState<Partner[]>([]);
+  const [deleteData, setDeleteData] = useState<SmallPublication>()
+  const [posts, setPosts] = useState<SmallPublication[]>([]);
   useEffect(() => {
     if (data) {
       
@@ -63,14 +63,14 @@ function AdminIndex(props: any) {
   }
   , [data])
 
-  function openDeleteModal(publicationData: Partner) {
+  function openDeleteModal(publicationData: SmallPublication) {
     setDeleteData(publicationData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
 
   function commands(args: any) {
     if (args.column.field === "commands") {
-        const rowData = args.data as Partner
+        const rowData = args.data as SmallPublication
         const root = createRoot(args.cell);
         root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
     }
