@@ -15,7 +15,7 @@ type createPostInput = {
 }
 
 type updatePostInput = {
-  active?: Boolean,
+  active?: boolean,
   title?: string,
   subtitle?: string,
   content?: string,
@@ -23,7 +23,7 @@ type updatePostInput = {
 }
 type updatePostBody = {
   id: number,
-  body: updatePostBody
+  body: updatePostInput
 }
 
 type createPartnerInput = {

@@ -1,16 +1,15 @@
 import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
 import { toast } from 'react-toastify';
 import { HtmlEditor, Image, Inject, Link, QuickToolbar, RichTextEditorComponent, Toolbar, ToolbarSettingsModel } from '@syncfusion/ej2-react-richtexteditor';
-import { NextPage } from "next"
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { Button, Col, Container, Form, FormGroup, Label, Row, Input } from "reactstrap"
 
 import AdminHeader from "../Header"
-import AdminLayout from "../../../layouts/AdminLayout"
 
 import PostService from "../../../services/PostService";
+import { Publication } from '@prisma/client';
 
 const items: string[] = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'LowerCase', 'UpperCase', '|',
 'Formats', 'NumberFormatList', 'BulletFormatList',
@@ -21,8 +20,13 @@ const toolbarSettings: ToolbarSettingsModel = {
   items: items,
 };
 
-function PostForm() {
-  const [postInput, setPostInput] = useState<createPostInput>({
+type props = {
+  Post?: Publication
+}
+
+function PostForm({Post}: props ) {
+  
+  const [postInput, setPostInput] = useState<createPostInput | updatePostInput>({
     title: '',
     active: true,
     content: '',
@@ -30,12 +34,24 @@ function PostForm() {
     Image: '',
   })
   const router = useRouter();
-
   const postCreation = useMutation((newPost: createPostInput) => { return PostService.createPost(newPost)}, {onSuccess: () => success() });
+  const postUpdate = useMutation((postUpdate: updatePostInput) => {return PostService.updatePost({id: Post?.id as number, body: postUpdate})}, {onSuccess: () => success() })
+
+  useEffect(() => {
+    if (Post) {
+      setPostInput({
+        title: Post.title,
+        active: Post.active,
+        content: Post.content,
+        subtitle: Post.subTitle,
+      })
+    }
+  }, [Post])
+
 
   function success() {
     router.push('/admin');
-    const message = 'Postagem criada com sucesso!'
+    const message = Post ? 'Postagem atualizada com sucesso!': 'Postagem criada com sucesso!'
     toast.success(message, {
       position: "top-center",
       autoClose: 3000,
@@ -48,14 +64,24 @@ function PostForm() {
 
   function onSubmit(event: any) {
     event.preventDefault()
-    postCreation.mutate(postInput)
+    if (Post) return onUpdate()
+    onCreate()
   }
 
+  function onCreate() {
+    postCreation.mutate(postInput as createPostInput) 
+  }
 
+  function onUpdate() {
+    postUpdate.mutate(postInput as updatePostInput);
+  }
+
+  const title = Post ?  'Atualizar postagem' : 'Criar Postagem'
+  const buttonText = Post? 'Atualizar' : 'Criar'
   return (
   <>
   <Container>
-    <AdminHeader title='Criar Postagem' />
+    <AdminHeader title={title} />
     <Form onSubmit={onSubmit}>
       <Row>
         <Col lg={8}>
@@ -102,7 +128,7 @@ function PostForm() {
                 Voltar
               </Button>
             </Col>
-            <Col xs="auto"><Button submit color='success' >Criar</Button></Col>
+            <Col xs="auto"><Button submit color='success' >{buttonText}</Button></Col>
           </Row>
     </Form>
     
@@ -113,13 +139,5 @@ function PostForm() {
 
 
 
-PostForm.getLayout = (page: NextPage) => {
-  return (
-    <AdminLayout>
-      {page}
-    </AdminLayout>
-  )
-}
 
-PostForm.auth = true;
 export default PostForm

@@ -1,3 +1,4 @@
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   async createPost(payload: createPostInput) {
@@ -9,6 +10,26 @@ export default {
     data.append('content', payload.content);
     const response = await fetch('/api/post/create', {
       method: 'POST',
+      body: data
+    })
+    const result = await response.json()
+    return result;
+  },
+  async updatePost(payload: updatePostBody) {
+    const data = new FormData();
+    type StatusKey = keyof typeof payload.body;
+    data.append('id', payload.id.toString())
+    Object.keys(payload.body).forEach((attribute: any) => {
+      let key: StatusKey = attribute;
+      let value = payload.body[key];
+      if (key === 'Image') {
+        data.append(attribute, value.rawFile)
+      } else {
+        data.append(attribute, value)
+      }
+    })
+    const response = await fetch('/api/post/put', {
+      method: 'PUT',
       body: data
     })
     const result = await response.json()

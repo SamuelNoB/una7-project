@@ -69,7 +69,7 @@ function AdminIndex(props: any) {
   }
 
   function goToUpdate(data: SmallPublication) {
-    router.push(`/admin/post/update/${data.id}`, )
+    router.push(`/admin/post/update/${data.id}`)
   }
 
   function commands(args: any) {
@@ -79,6 +79,7 @@ function AdminIndex(props: any) {
         root.render(<Commands key={rowData.id} data={rowData} update={goToUpdate} delete={openDeleteModal} />)
     }
   }
+
   function afterDeleted(id: string) {
     toast.success('Publicação excluida com sucesso', {
       position: "top-center",
