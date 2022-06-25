@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -61,7 +61,7 @@ model Publication {
   active        Boolean     @default(true)
   title         String
   subTitle      String
-  coverImage    String        // imagem de capa da publicação
+  coverImage    String      @db.LongText	  // imagem de capa da publicação
   imageType     String      @default("")
   content       String
 
@@ -78,7 +78,7 @@ model Partner {
   name          String
   link          String
   active        Boolean     @default(true)
-  image         String      // se relaciona com o model File
+  image         String      @db.LongText	// se relaciona com o model File
   imageType     String      @default("")
 }
 
@@ -86,7 +86,7 @@ model Client {
   id            Int         @id @default(autoincrement())
   visible       Boolean     @default(true)
   name          String
-  clientPhoto   String
+  clientPhoto   String      @db.LongText
   photoType     String      @default("")
   link          String?
 }

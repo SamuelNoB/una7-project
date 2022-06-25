@@ -109,7 +109,7 @@ const Home = () => {
         
           <Row className="justify-content-center" style={{marginBottom: '2em'}}>
               <Col lg={9} className="fs-4 fw-bold" >Instragram</Col>
-              <ElfsightWidget widgetID="92ad1ffe-4ccf-4a03-b540-45a1ed524bf8" />
+              <ElfsightWidget widgetID="92ad1ffe-4ccf-4a03-b540-45a1ed524bf8"  />
           </Row>
           
           <Row className="justify-content-center">

@@ -88,7 +88,7 @@ export default function DefaultLayout({children, fixed}: any) {
                   <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
                     <BsInstagram size={20} />
                   </NavLink>
-                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://www.instagram.com/agenciauna7/" target="_blank">
+                  <NavLink className="hoverClassForButtons" style={ {...style, ...linkStyle} } href="https://twitter.com/agenciauna7" target="_blank">
                     <BsTwitter size={20} />
                   </NavLink>
           </NavItem>

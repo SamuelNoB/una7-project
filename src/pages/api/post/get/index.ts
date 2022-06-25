@@ -27,6 +27,7 @@ async function getAllPosts(req: NextApiRequest, res: NextApiResponse<Data>) {
       title: true,
       subTitle: true,
       active: true,
+      imageType: true,
       coverImage: true,
       id: true,
       createdAt: true

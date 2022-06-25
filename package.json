@@ -1,6 +1,7 @@
 {
   "name": "una7-front",
   "version": "0.1.0",
+  "homepage": "https://agenciauna7.com.br",
   "private": true,
   "scripts": {
     "dev": "next dev",

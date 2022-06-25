@@ -68,11 +68,15 @@ function AdminIndex(props: any) {
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
 
+  function goToUpdate(data: SmallPublication) {
+    router.push(`/admin/post/update/${data.id}`, )
+  }
+
   function commands(args: any) {
     if (args.column.field === "commands") {
         const rowData = args.data as SmallPublication
         const root = createRoot(args.cell);
-        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
+        root.render(<Commands key={rowData.id} data={rowData} update={goToUpdate} delete={openDeleteModal} />)
     }
   }
   function afterDeleted(id: string) {

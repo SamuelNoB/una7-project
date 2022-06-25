@@ -9,6 +9,17 @@
   transition: .5s ease;
 }
 
+.hoverClassGray {
+  background: gray;
+  transition: 1s ease;
+}
+
+.hoverClassGray:hover {
+  cursor: pointer;
+  opacity: 0.70;
+  transition: .5s ease;
+}
+
 
 .hoverClassForButtons {
   background: inherit;

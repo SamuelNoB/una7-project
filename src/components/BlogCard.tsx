@@ -1,11 +1,10 @@
 
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useState } from "react";
-import { Card, CardBody, CardImg, CardTitle, CardText, CardFooter, CardFooterProps } from "reactstrap";
+import { Card, CardBody, CardImg, CardTitle, CardText, CardFooter } from "reactstrap";
 
 interface props {
-  params: Partner
+  params: SmallPublication
   full: boolean
 }
 

@@ -71,36 +71,31 @@ function ContactPage(props: any) {
       <Row>
         <Col style={{margin: 'auto 0'}} >
           <Row className="justify-content-center">
-            <Col lg={4}>
-              <div style={{margin: '0 auto', width: 'fit-content'}}>
+            <Col className="hoverClassGray" lg={4}>
+              <div  style={{margin: '0 auto', width: 'fit-content'}}>
                 <BsTelephone  size={50} />
               </div>
               <p className="fw-bold" style={{textAlign: 'center'}}>Telefone</p>
-              <p style={{textAlign: 'center'}}>(61) 9 9996-4690</p>
+              <p style={{textAlign: 'center'}}>(61) 9 8157-7003</p>
             </Col>
             <Col lg={4}>
-              <div style={{margin: '0 auto', width: 'fit-content'}}>
-                <MdAlternateEmail  size={50} />
-              </div>
-              <p className="fw-bold" style={{textAlign: 'center'}}>E-mail</p>
-              <p style={{textAlign: 'center'}}>Email@email.com.br</p>
-            </Col>
-            </Row>
-            <Row className="justify-content-center">
-              <Col lg={4}>
                 <div style={{margin: '0 auto', width: 'fit-content'}}>
                   <MdLocationOn  size={50} />
                 </div>
                 <p className="fw-bold" style={{textAlign: 'center'}}>Endereço</p>
-                <p style={{textAlign: 'center'}}>Endereço de exemplo</p>
+                
+                <p style={{textAlign: 'center'}}>Águas Claras - Brasília DF</p>
               </Col>
-              <Col lg={4}>
-                <div style={{margin: '0 auto', width: 'fit-content'}}>
-                  <MdEmail  size={50} />
-                </div>
-                <p className="fw-bold" style={{textAlign: 'center'}}>E-mail</p>
-                <p style={{textAlign: 'center'}}>Email@email.com.br</p>
-              </Col>
+            
+            </Row>
+            <Row className="justify-content-center">
+            <Col lg={6}>
+              <div style={{margin: '0 auto', width: 'fit-content'}}>
+                <MdAlternateEmail  size={50} />
+              </div>
+              <p className="fw-bold" style={{textAlign: 'center'}}>E-mail</p>
+              <p style={{textAlign: 'center'}}>una7marketingdigital@gmail.com</p>
+            </Col>
             </Row>
           
         </Col>
