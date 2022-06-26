@@ -26,6 +26,10 @@ type updatePostBody = {
   body: updatePostInput
 }
 
+type updatePartnerBody = {
+  id: number,
+  body: updatePartnerInput
+}
 type createPartnerInput = {
   name: string,
   link: string,
@@ -37,7 +41,7 @@ type updatePartnerInput = {
   name?: string,
   link?: string,
   active?: boolean,
-  image?: string | any,
+  Image?: string | any,
 }
 
 type createClientInput = {

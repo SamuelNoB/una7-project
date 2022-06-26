@@ -63,12 +63,15 @@ function PartnerIndex(props: any) {
     setDeleteData(partnerData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
+  function goToUpdate(data: Partner) {
+    router.push(`/admin/partners/update/${data.id}`)
+  }
 
   function commands(args: any) {
     if (args.column.field === "commands") {
         const rowData = args.data as Partner
         const root = createRoot(args.cell);
-        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
+        root.render(<Commands key={rowData.id} data={rowData} update={goToUpdate} delete={openDeleteModal} />)
     }
   }
   function afterDeleted(id: number) {

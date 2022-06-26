@@ -21,14 +21,22 @@ export default {
     const result = await response.json();
     return result
   },
-
-  async updatePartner(payload: updatePartnerInput) {
+  async getOnePartner({queryKey}: any) {
+    const [_, {id}] = queryKey
+    const response = await fetch(`/api/partner/get/${id}`, {
+      method: 'GET',
+    });
+    const body = await response.json();
+    return body.data;
+  },
+  async updatePartner(payload: updatePartnerBody) {
     const data = new FormData();
-    type StatusKey = keyof typeof payload;
-    Object.keys(payload).forEach((attribute: any) => {
+    type StatusKey = keyof typeof payload.body;
+    data.append('id', payload.id.toString())
+    Object.keys(payload.body).forEach((attribute: any) => {
       let key: StatusKey = attribute
-      let value = payload[key];
-      if (key === 'image') {
+      let value = payload.body[key];
+      if (key === 'Image') {
         data.append(attribute, value.rawFile)
       } else {
         data.append(attribute, value)

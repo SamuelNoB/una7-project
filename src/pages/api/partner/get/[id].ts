@@ -4,7 +4,7 @@ import nextConnect from 'next-connect'
 import prisma from '@core/db'
 
 type Data = {
-  data: Partial<Partner>[]
+  data: Partner | null
 }
 type Error = {
   error: string
@@ -18,17 +18,15 @@ const apiRoute = nextConnect({
   })}
 })
 
-async function getAllPartner(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const allPartners = await prisma.partner.findMany({
+async function getOnePartner(req: NextApiRequest, res: NextApiResponse<Data>) {
+  const {id} = req.query
+  const aPartner = await prisma.partner.findUnique({
     where: {
-      active: true
+      id: Number(id)
     },
-    orderBy: {
-      name: 'asc'
-    }
   });
-  return res.status(200).json({data: allPartners})
+  return res.status(200).json({data: aPartner})
 }
 
-apiRoute.get(getAllPartner)
+apiRoute.get(getOnePartner)
 export default apiRoute;

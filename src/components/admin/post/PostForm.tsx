@@ -8,7 +8,7 @@ import { Button, Col, Container, Form, FormGroup, Label, Row, Input } from "reac
 
 import AdminHeader from "../Header"
 
-import PostService from "../../../services/PostService";
+import PostService from "@services/PostService";
 import { Publication } from '@prisma/client';
 
 const items: string[] = ['Bold', 'Italic', 'Underline', 'StrikeThrough', 'LowerCase', 'UpperCase', '|',

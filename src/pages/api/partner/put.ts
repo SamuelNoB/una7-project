@@ -22,7 +22,7 @@ const apiRoute = nextConnect({
 
 type promiseDataInput = {
   id: number,
-  data: updatePartnerInput,
+  data: any,
   image: any
 }
 
@@ -41,32 +41,30 @@ async function handler(
   const form = new multiparty.Form({autoFields: true, autoFiles: true});
   const {id, data, image} = await new Promise<promiseDataInput>((resolve, rejects) => {
     form.parse(req, (err, fields, files) => {
-      const id = fields.id[0]
-      const parsedData = {
+      const id = Number(fields.id[0])
+      const parsedData: any = {
         name: fields.name[0],
         link: fields.link[0],
-        active: fields.active[0],
+        active: fields.active[0] ==='true'? true : false ,
       }
-      resolve({id, data: parsedData, image: files.image[0]});
+      if (files.Image) {
+        parsedData.imageType = files.Image[0].headers['content-type']
+        parsedData.image = files.Image[0]
+      }
+      resolve({id, data: parsedData, image: parsedData.image});
     });
   });
-  const payload: any = {
-    ...data,
-  }
   if (image) {
-    payload.image = await convertImage(image.path)
-    payload.imageType = image.headers['content-type']
+    data.image = await convertImage(image.path)
+    data.imageType = image.headers['content-type']
   }
   
-
-  const result = await prisma.partner.update({
-    where: {
-      id
-    },
-      data: {
-        ...payload
-      }
-  });
+    const result = await prisma.partner.update({
+      where: {
+        id
+      },
+        data
+    });
 
   return res.status(200).json({
     message: "Parceiro criado com sucesso",
