@@ -28,7 +28,7 @@ function ClientForm({Client}: props ) {
   }, [Client])
 
   const createClient = useMutation((newClient: createClientInput) =>  {return ClientService.createClient(newClient)})
-  const updateClient = useMutation((newClient: createClientInput) =>  {return ClientService.updateClient(newClient)})
+  const updateClient = useMutation((newClient: createClientInput) =>  {return ClientService.updateClient({id: Client?.id as number,body:newClient})})
 
   function onSubmit(e: any) {
     e.preventDefault()

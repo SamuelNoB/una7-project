@@ -51,7 +51,7 @@ async function updateClient(
         parsedData.clientPhoto = files.Image[0]
         parsedData.photoType = files.Image[0].headers['content-type']
       }
-      resolve({id: Number(fields.id[0]),data: parsedData ,image: files.Image[0]});
+      resolve({id: Number(fields.id[0]),data: parsedData ,image: parsedData.clientPhoto});
     });
   });
 

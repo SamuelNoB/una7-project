@@ -31,13 +31,25 @@ export default {
     const result = await response.json()
     return response.status === 200 ? result.data : result.error
   },
-  async updateClient(payload: any) {
-    const formData = new FormData()
-
+  async updateClient(payload: updateClientBody) {
+    const data = new FormData();
+    type StatusKey = keyof typeof payload.body;
+    data.append('id', payload.id.toString())
+    Object.keys(payload.body).forEach((attribute: any) => {
+      let key: StatusKey = attribute;
+      let value = payload.body[key];
+      if (key === 'Image') {
+        data.append(attribute, value.rawFile)
+      } else {
+        data.append(attribute, value)
+      }
+    })
     const response = await fetch(`/api/client/put`, {
       method: 'PUT',
-      body: formData
+      body: data
     })
+    const result = await response.json()
+    return result
   },
 
   async deleteClient(id: string): Promise<string> {

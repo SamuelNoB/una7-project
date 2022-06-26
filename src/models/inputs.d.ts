@@ -50,3 +50,14 @@ type createClientInput = {
   link: string,
   Image: any
 }
+
+type updateClientBody = {
+  id: number,
+  body: updateClientInput
+}
+type updateClientInput = {
+  visible?: boolean | string,
+  name?: string,
+  link?: string,
+  Image?: any
+}
