@@ -29,11 +29,16 @@ function ClientForm({Client}: props ) {
 
   const createClient = useMutation((newClient: createClientInput) =>  {return ClientService.createClient(newClient)})
   const updateClient = useMutation((newClient: createClientInput) =>  {return ClientService.updateClient(newClient)})
+
   function onSubmit(e: any) {
     e.preventDefault()
+    if (Client) return onUpdate();
+    onCreate()
+  }
+  function onCreate() {
     createClient.mutate(clientData, {
       onSuccess: () => {
-        const message = 'Cliente criado com sucesso!'
+        const message ='Cliente criado com sucesso!';
         toast.success(message, {
           position: "top-center",
           autoClose: 3000,
@@ -45,8 +50,25 @@ function ClientForm({Client}: props ) {
         router.push('/admin/clients/')
       }
     })
-
   }
+
+  function onUpdate() {
+    updateClient.mutate(clientData, {
+      onSuccess: () => {
+        const message = 'Cliente atualizado com sucesso!'
+        toast.success(message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          });
+        router.push('/admin/clients/')
+      }
+    })
+  }
+
 
   return (
     <>
