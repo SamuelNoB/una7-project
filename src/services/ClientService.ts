@@ -9,7 +9,8 @@ export default {
     const result = await response.json();
     return result.clients;
   },
-  async getOneClient(id: string): Promise<Client | string> {
+  async getOneClient({queryKey}: any): Promise<Client | string> {
+    const [_, {id}] = queryKey
     const response = await fetch(`/api/client/get/${id}`, {
       method: 'GET'
     })
@@ -29,6 +30,14 @@ export default {
 
     const result = await response.json()
     return response.status === 200 ? result.data : result.error
+  },
+  async updateClient(payload: any) {
+    const formData = new FormData()
+
+    const response = await fetch(`/api/client/put`, {
+      method: 'PUT',
+      body: formData
+    })
   },
 
   async deleteClient(id: string): Promise<string> {

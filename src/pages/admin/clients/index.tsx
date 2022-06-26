@@ -65,6 +65,9 @@ function ClientIndex(params: any) {
     setDeleteData(clientData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
+  function goToUpdate(clientData: Client) {
+    router.push(`/admin/clients/update/${clientData.id}`)
+  }
 
   function afterDeleted(id: string) {
     toast.success('Cliente excluido com sucesso', {
@@ -81,7 +84,7 @@ function ClientIndex(params: any) {
     if (args.column.field === "commands") {
         const rowData = args.data as Client
         const root = createRoot(args.cell);
-        root.render(<Commands key={rowData.id} data={rowData} update={(data: any) => 0} delete={openDeleteModal} />)
+        root.render(<Commands key={rowData.id} data={rowData} update={goToUpdate} delete={openDeleteModal} />)
     }
   }
 

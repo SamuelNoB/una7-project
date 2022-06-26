@@ -27,7 +27,7 @@ async function getClient(req: NextApiRequest, res: NextApiResponse) {
     }
   });
 
-  if (result) {
+  if (!result) {
     return res.status(400).json({
       error: 'não foi encontrado nenhum cliente'
     });
