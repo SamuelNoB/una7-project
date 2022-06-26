@@ -1,4 +1,4 @@
-import ClientForm from "@components/admin/clients/Clientform";
+import ClientForm from "@components/admin/clients/ClientForm";
 import ClientService from "@services/ClientService";
 import AdminLayout from "layouts/AdminLayout";
 import { NextPage } from "next";
