@@ -39,3 +39,4 @@ prisma/dev.db
 *.png
 *.jpeg
 .env
+.env
