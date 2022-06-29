@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { registerLicense } from '@syncfusion/ej2-base';
+import Head from 'next/head'
 
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
@@ -44,6 +45,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <>
+    <Head>
+      <title>Una7</title>
+      <meta name="description" content="agência una7 " />
+    </Head>
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
         {Component.auth ? (
