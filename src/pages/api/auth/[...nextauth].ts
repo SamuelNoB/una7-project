@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client"
 
 const authorizedEmails = [
   'hu3mulenda@gmail.com',
-  ''
+  'una7marketingdigital@gmail.com'
 ]
 
 const prisma = new PrismaClient()
