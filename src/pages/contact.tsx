@@ -71,7 +71,7 @@ function ContactPage(props: any) {
       <Row>
         <Col style={{margin: 'auto 0'}} >
           <Row className="justify-content-center">
-            <Col className="hoverClassGray" lg={4}>
+            <Col lg={4}>
               <div  style={{margin: '0 auto', width: 'fit-content'}}>
                 <BsTelephone  size={50} />
               </div>
