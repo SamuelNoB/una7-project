@@ -59,11 +59,11 @@ model VerificationToken {
 model Publication {
   id            Int         @id @default(autoincrement())
   active        Boolean     @default(true)
-  title         String
-  subTitle      String
+  title         String      @db.LongText
+  subTitle      String      @db.LongText
   coverImage    String      @db.LongText	  // imagem de capa da publicação
   imageType     String      @default("")
-  content       String
+  content       String      @db.LongText
 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @default(now())
@@ -96,5 +96,5 @@ model Contact {
   subject       String
   senderName    String
   email         String
-  content       String
+  content       String      @db.LongText
 }
