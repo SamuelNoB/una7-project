@@ -8,10 +8,9 @@ type emailData = {
 }
 export function sendEmail(params:emailData) {
   let transporter = nodemailer.createTransport({
-    host: 'br1024.hostgator.com.br',
-    port: 2096,
+    host: 'smtp.titan.email',
+    port: 465,
     secure: true,
-    service: "br1024.hostgator.com.br",
     auth: {
       user: process.env.SENDER_EMAIL,
       pass: process.env.SENDER_EMAIL_PASS
