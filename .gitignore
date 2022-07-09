@@ -40,3 +40,4 @@ prisma/dev.db
 *.jpeg
 .env
 .env
+.env
