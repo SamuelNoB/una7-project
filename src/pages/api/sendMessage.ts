@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {Contact} from '@prisma/client'
 import Error from 'next/error'
 import prisma from '@core/db'
+import { sendEmail } from '@core/sendEmail'
 
 
 type responseData = {
@@ -27,6 +28,12 @@ export default async function handler(
         subject: data.subject
       }
     });
+    sendEmail({
+      from: process.env.SENDER_EMAIL as string,
+      to: process.env.RECIEVER_EMAIL as string,
+      subject: data.subject,
+      text: `Informações:\nNome: ${data.fullName}\nEmail: ${data.email}\n\n` + data.message
+    })
     return res.status(200).json({
       message: 'Mensagem enviada com sucesso',
       contactData: result

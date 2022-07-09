@@ -31,11 +31,11 @@ function AdminLayout({children}: any) {
       title: 'Clientes',
       elemBefore: () => (<RiSuitcaseLine />)
     },
-    {
+    /*{
       itemId: '/admin/banners',
       title: 'Banners',
       elemBefore: () => (<HiOutlineBookmark />)
-    },
+    },*/
     {
       itemId: '/',
       title: 'Ir para site',
