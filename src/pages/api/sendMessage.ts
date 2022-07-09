@@ -32,7 +32,7 @@ export default async function handler(
       from: process.env.SENDER_EMAIL as string,
       to: process.env.RECIEVER_EMAIL as string,
       subject: data.subject,
-      text: `Informações:\nNome: ${data.fullName}\nEmail: ${data.email}\n\n` + data.message
+      text: `Informações do cliente\nNome: ${data.fullName}\nEmail: ${data.email}\n\n` + `Mensagem\n`+ data.message
     })
     return res.status(200).json({
       message: 'Mensagem enviada com sucesso',
