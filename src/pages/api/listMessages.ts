@@ -15,11 +15,18 @@ export default async function handler(req:NextApiRequest, res: NextApiResponse) 
     }
 
     const contactData = await prisma.contact.findMany({
+      distinct: ['email'],
       orderBy: {
         senderName: 'asc'
       }
     });
-
-    return res.status(200).json({data: contactData})
+    const data = contactData.map((aContact, index) => {
+      return {
+        numero: index,
+        name: aContact.senderName,
+        email: aContact.email
+      }
+    })
+    return res.status(200).json({data})
   }
 }

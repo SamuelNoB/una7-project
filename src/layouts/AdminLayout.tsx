@@ -4,17 +4,38 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
 import {BsFillFileEarmarkPostFill, BsPerson} from "react-icons/bs"
 import {HiOutlineBookmark} from 'react-icons/hi';
+import {AiOutlineFileExcel} from 'react-icons/ai'
 import {RiSuitcaseLine} from 'react-icons/ri'
 
 import {Navigation, NavItemProps} from 'react-minimal-side-navigation';
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import { Col, Row } from "reactstrap";
+import { useQuery } from "react-query";
+import ContactService from "@services/ContactService";
+import { useEffect, useState } from "react";
 
+import {utils, writeFile} from 'xlsx';
 
 function AdminLayout({children}: any) {
+  const {data, error, isLoading} = useQuery('getSenders', ContactService.listMessages)
+  const [sendersData, setSendersData] = useState<any>();
+
   const { data: session, status } = useSession()
   const router = useRouter();
-  
+
+  useEffect(() => {
+    if (data) {
+      setSendersData(data);
+    }
+  }, [data]);
+
+  function createExcel() {
+    const wb = utils.book_new();
+    const ws = utils.json_to_sheet(data as any)
+    utils.book_append_sheet(wb, ws, 'Contatos')
+    writeFile(wb, 'Contatos.xlsx')
+  }
+
   const routes: NavItemProps[] = [
     {
       itemId: '/admin',
@@ -30,6 +51,11 @@ function AdminLayout({children}: any) {
       itemId: '/admin/clients',
       title: 'Clientes',
       elemBefore: () => (<RiSuitcaseLine />)
+    },
+    {
+      itemId: 'Exportar',
+      title: 'Exportar clientes',
+      elemBefore: () => (<AiOutlineFileExcel/>)
     },
     /*{
       itemId: '/admin/banners',
@@ -61,6 +87,9 @@ function AdminLayout({children}: any) {
           if (itemId === 'Sair') {
             signOut({callbackUrl: '/'})
             return
+          }
+          if(itemId === 'Exportar') {
+            return createExcel()
           }
           router.push(itemId);
         }}

@@ -14,11 +14,11 @@ export default {
     return await response.json();
   },
 
-  async listMessages(): Promise<{data: Contact[]}> {
+  async listMessages(): Promise<{data: Partial<Contact[]>}> {
     const response = await fetch('api/listMessages', {
       method: 'GET',
     });
-    const {data} = await response.json()
+    const {data} = await response.json() ?? []
     return data;
   }
 }
