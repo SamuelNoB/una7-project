@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 interface ClientCardProps {
   width?: number;
@@ -10,7 +10,7 @@ interface ClientCardProps {
   imageType: string
 }
 
-function ClientCard(params: ClientCardProps) {
+function ClientCard(params: ClientCardProps, ref: any) {
   const {height, width} = params;
   const [imageHeight, setImageHeight] = useState(300)
   const [imageWidth, setImageWidth] = useState(300)
@@ -24,9 +24,11 @@ function ClientCard(params: ClientCardProps) {
   return (
   <div className="hoverClass">
     <Link href={params.externalLink} passHref>
-      <Image src={`data:${params.imageType};base64, ${params.imageLink}`} alt="client" width={imageHeight} height={imageWidth} layout='responsive' />
+      <a href="">
+        <Image src={`data:${params.imageType};base64, ${params.imageLink}`} alt="client" width={imageHeight} height={imageWidth} layout='responsive' />
+      </a>
     </Link>
   </div>
   )
 }
-export default ClientCard 
+export default React.forwardRef(ClientCard )

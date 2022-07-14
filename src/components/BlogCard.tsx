@@ -17,37 +17,39 @@ function BlogCard({params, full}: props) {
   return (
     
       <Link href={'/blog/post/[id]'} as={`blog/post/${params.id}`} passHref >
-        <Card
-        className="hoverClass"
-        color="light"
-        >
-          <CardImg
-          src={`data:${params.imageType};base64, ${params.coverImage}`}
-          top
-          width={'100%'}
-          style={{minHeight: '200px', maxHeight: '200px', objectFit: 'cover'}}
-          />
-          <CardBody style={{minHeight: minMax, maxHeight: minMax}}>
-            <CardTitle tag={'h4'}>
-              {params.title}
-            </CardTitle>
-            {
-              full === true ? (
-              <CardText style={{height: '100%'}} className="text-truncate">
-                {params.subTitle}
-              </CardText>
-              ) :(
-                <>
-                  
-                </>
-              )
-            }
-            
-          </CardBody>
-          <CardFooter  className="text-muted">
-            Postado Em: {displayDate}
-          </CardFooter>
-        </Card>
+        <a style={{color: 'inherit', textDecoration: 'none'}}>
+          <Card
+          className="hoverClass"
+          color="light"
+          >
+            <CardImg
+            src={`data:${params.imageType};base64, ${params.coverImage}`}
+            top
+            width={'100%'}
+            style={{minHeight: '200px', maxHeight: '200px', objectFit: 'cover'}}
+            />
+            <CardBody style={{minHeight: minMax, maxHeight: minMax}}>
+              <CardTitle tag={'h4'}>
+                {params.title}
+              </CardTitle>
+              {
+                full === true ? (
+                <CardText style={{height: '100%'}} className="text-truncate">
+                  {params.subTitle}
+                </CardText>
+                ) :(
+                  <>
+          
+                  </>
+                )
+              }
+          
+            </CardBody>
+            <CardFooter  className="text-muted">
+              Postado Em: {displayDate}
+            </CardFooter>
+          </Card>
+        </a>
       </Link>
   );
 }
