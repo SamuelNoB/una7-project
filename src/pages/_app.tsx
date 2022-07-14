@@ -1,9 +1,10 @@
 import { SessionProvider } from "next-auth/react"
-import type { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useEffect } from 'react'
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-
+import * as gtag from '../libs/gtag'
+import Analytics from '../components/Analytics'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { registerLicense } from '@syncfusion/ej2-base';
@@ -28,6 +29,7 @@ dayjs.extend(isLeapYear) // use plugin
 
 import Auth from "../components/auth";
 import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 const syncFusionKey = process.env.NEXT_PUBLIC_SYNCFUSION_KEY ?? '';
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode,
@@ -41,6 +43,17 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   registerLicense(syncFusionKey)
   const [queryClient] = useState(() => new QueryClient());
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = (url:any) => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
@@ -62,6 +75,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       </SessionProvider>
     </QueryClientProvider>
     <ToastContainer />
+    <Analytics />
   </>
   )
 }
