@@ -16,6 +16,7 @@ import PostService from "../services/PostService";
 import ClientService from "../services/ClientService";
 import { Client, Partner } from "@prisma/client";
 import PartnerService from "@services/PartnerService";
+import BannerCard from "@components/home/BannerCard";
 
 const responsive = {
   superLargeDesktop: {
@@ -36,6 +37,26 @@ const responsive = {
     items: 1
   }
 };
+
+const bannerCarouselResponsiviness = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 2
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+}
 
 
 const Home = () => {
@@ -98,6 +119,23 @@ const Home = () => {
               })
             }
           </div>
+        </Col>
+        <Col lg={9} style={{marginTop: '1em'}}>
+          <Carousel 
+          responsive={bannerCarouselResponsiviness}
+          shouldResetAutoplay={true}
+          arrows={false}
+          className="carousel"
+          autoPlay
+          ssr
+          autoPlaySpeed={5000}
+          >
+          <BannerCard link={'#'} />
+          <BannerCard link={'#'} />
+          <BannerCard link={'#'} />
+          <BannerCard link={'#'} />
+          <BannerCard link={'#'} />
+          </Carousel>
         </Col>
       </Row>
       </Container >

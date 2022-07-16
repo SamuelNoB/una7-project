@@ -69,6 +69,11 @@ export default function DefaultLayout({children, fixed}: any) {
             </NavLink>
           </NavItem>
           <NavItem>
+            <NavLink className="hoverClassForButtons" href="/about" style={linkStyle}>
+              Sobre Nós
+            </NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink className="hoverClassForButtons" href="/blog" style={linkStyle}>
               Blog
             </NavLink>
@@ -96,8 +101,8 @@ export default function DefaultLayout({children, fixed}: any) {
         </Nav>
     </Collapse>
     </Navbar>
-      <main>{children}</main>
-    <div className="w-100">
+      <main style={{minHeight: '100vh'}}>{children}</main>
+    <footer className="w-100 footer static-bottom" style={{padding: '0'}}>
         <Row className="w-100 align-items-end" style={{backgroundColor: '#E3E3E3', margin: '0'}}>
           <Col className="d-flex " style={{height: '4em'}}>
             <p onClick={sendToAdmin} style={{cursor: 'pointer'}}>
@@ -110,7 +115,7 @@ export default function DefaultLayout({children, fixed}: any) {
           <Col lg={4} style={{textAlign: 'center'}}>Agência Una7 © 2022. Todos os direitos Reservados</Col>
           <Col lg={2}></Col>
         </Row>
-    </div>
+    </footer>
     </>
   )
 }

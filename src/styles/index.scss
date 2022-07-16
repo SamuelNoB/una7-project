@@ -3,7 +3,7 @@
 
 .clients-grid {
   @include respond-to('small') {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -13,4 +13,8 @@
     margin: 6px;
     text-align: center;
   }
+}
+
+.carousel {
+  border-radius: .25rem;
 }
