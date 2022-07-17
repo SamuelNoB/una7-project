@@ -9,6 +9,8 @@ import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { AiOutlinePlus } from "react-icons/ai"
+import { createRoot } from "react-dom/client";
+
 import { useQuery } from "react-query"
 import { toast } from "react-toastify"
 import { Button, Col, Container, Row } from "reactstrap"
@@ -120,4 +122,5 @@ Banners.getLayout = (page: NextPage) => {
     </AdminLayout>
   )
 }
+Banners.auth = true;
 export default Banners

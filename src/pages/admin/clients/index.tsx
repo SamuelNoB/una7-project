@@ -121,6 +121,6 @@ ClientIndex.getLayout = (page: NextPage) => {
     </AdminLayout>
   )
 }
-
+ClientIndex.auth = true;
 
 export default ClientIndex

@@ -1,11 +1,11 @@
 import ClientForm from "@components/admin/clients/ClientForm";
 import AdminLayout from "layouts/AdminLayout";
 import { NextPage } from "next";
-function UpdateClient() {
+function CreateClient() {
   return (<ClientForm />)
 }
 
-UpdateClient.getLayout = (page: NextPage) => {
+CreateClient.getLayout = (page: NextPage) => {
   return (
     <AdminLayout>
       {page}
@@ -13,6 +13,6 @@ UpdateClient.getLayout = (page: NextPage) => {
   )
 }
 
-UpdateClient.auth = true;
+CreateClient.auth = true;
 
-export default UpdateClient
+export default CreateClient
