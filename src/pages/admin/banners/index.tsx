@@ -59,7 +59,7 @@ function BannersIndex() {
   const [banners, setBanners] = useState<Banner[]>([])
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [deleteData, setDeleteData] = useState<Partial<Banner>>()
-  const {data, error} = useQuery('getBanners', BannerService.getAllBanners)
+  const {data, error} = useQuery(['getBanners', {onlyActive: false}], BannerService.getAllBanners)
 
   useEffect(() => {
     if (data) {

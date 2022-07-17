@@ -14,9 +14,10 @@ import WhatsappItem from "../components/home/Whatsapp";
 
 import PostService from "../services/PostService";
 import ClientService from "../services/ClientService";
-import { Client, Partner } from "@prisma/client";
+import { Banner, Client, Partner } from "@prisma/client";
 import PartnerService from "@services/PartnerService";
 import BannerCard from "@components/home/BannerCard";
+import BannerService from "@services/BannerService";
 
 const responsive = {
   superLargeDesktop: {
@@ -64,9 +65,11 @@ const Home = () => {
   const {data, error, isLoading} = useQuery('getLastPosts', PostService.getAllPost)
   const {data: serverClients} = useQuery('getClients', ClientService.getAllClients);
   const {data: serverPartners} = useQuery('getPartners', PartnerService.getAll);
+  const {data: serverBanners} = useQuery(['getBanners', {onlyActive: true}], BannerService.getAllBanners)
   const [publications, setPublications] = useState<SmallPublication[]>([]);
   const [clients, setClients] = useState<Client[]>([])
   const [partners, setPartners] = useState<Partner[]>([])
+  const [banners, setBanners] = useState<Banner[]>([]);
   useEffect(() => {
     if (data) {
       setPublications(data)
@@ -77,7 +80,10 @@ const Home = () => {
     if (serverPartners) {
       setPartners(serverPartners.data)
     }
-  }, [data, serverClients, serverPartners])
+    if(serverBanners) {
+      setBanners(serverBanners)
+    }
+  }, [data, serverClients, serverPartners, serverBanners])
 
 
   return (
@@ -123,18 +129,17 @@ const Home = () => {
         <Col lg={9} style={{marginTop: '1em'}}>
           <Carousel 
           responsive={bannerCarouselResponsiviness}
-          shouldResetAutoplay={true}
-          arrows={false}
+          shouldResetAutoplay
+          //arrows={false}
           className="carousel"
           autoPlay
           ssr
-          autoPlaySpeed={5000}
+          autoPlaySpeed={6000}
           >
-          <BannerCard link={'#'} />
-          <BannerCard link={'#'} />
-          <BannerCard link={'#'} />
-          <BannerCard link={'#'} />
-          <BannerCard link={'#'} />
+          {banners.map(banner => {
+            banner.imageType
+            return (<BannerCard imageType={banner.imageType} image={banner.image} key={banner.id} link={banner.link} />)
+          })}
           </Carousel>
         </Col>
       </Row>

@@ -20,14 +20,22 @@ const apiRoute = nextConnect({
 
 async function getBanners(req: NextApiRequest, res: NextApiResponse) {
   const query = req.query
-  const {onlyActive} = query;
+  let {onlyActive}: any = query;
+  onlyActive = onlyActive =='true' ? true : false;
   let filter: any = {}
-  if (onlyActive) {
+  if (onlyActive === true) {
     filter = {
       active: true,
-      displayUntil: {
-        lte: new Date()
-      }
+      OR: [
+        {
+          displayUntil: {
+            gte: new Date()
+          }
+        },
+        {
+          displayUntil: null
+        }
+      ]
     }
   }
   const banners = await prisma.banner.findMany({
