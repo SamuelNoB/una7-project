@@ -53,15 +53,15 @@ function AdminLayout({children}: any) {
       elemBefore: () => (<RiSuitcaseLine />)
     },
     {
+      itemId: '/admin/banners',
+      title: 'Banners',
+      elemBefore: () => (<HiOutlineBookmark />)
+    },
+    {
       itemId: 'Exportar',
       title: 'Exportar clientes',
       elemBefore: () => (<AiOutlineFileExcel/>)
     },
-    /*{
-      itemId: '/admin/banners',
-      title: 'Banners',
-      elemBefore: () => (<HiOutlineBookmark />)
-    },*/
     {
       itemId: '/',
       title: 'Ir para site',
