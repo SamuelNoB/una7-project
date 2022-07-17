@@ -15,7 +15,10 @@ export default {
   },
 
   async listMessages(): Promise<{data: Partial<Contact[]>}> {
-    const response = await fetch('api/listMessages', {
+    const response = await fetch('/api/listMessages', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       method: 'GET',
     });
     const {data} = await response.json() ?? []

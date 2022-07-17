@@ -51,6 +51,14 @@ type createClientInput = {
   Image: any
 }
 
+type createBannerInput = {
+  active: boolean | string,
+  name: string,
+  link: string,
+  displayUntil?: any,
+  Image: any
+}
+
 type updateClientBody = {
   id: number,
   body: updateClientInput

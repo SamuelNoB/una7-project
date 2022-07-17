@@ -14,6 +14,7 @@ import { createRoot } from "react-dom/client";
 import { useQuery } from "react-query"
 import { toast } from "react-toastify"
 import { Button, Col, Container, Row } from "reactstrap"
+import Link from "next/link"
 
 type column = {
   field: string,
@@ -47,7 +48,7 @@ const columns: column[] = [
 
 
 
-function Banners() {
+function BannersIndex() {
   const router = useRouter()
   const [clients, setClients] = useState<Client[]>([])
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -70,7 +71,7 @@ function Banners() {
   }
 
   function afterDeleted(id: string) {
-    toast.success('Cliente excluido com sucesso', {
+    toast.success('Banner excluido com sucesso', {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -91,12 +92,16 @@ function Banners() {
   return (
   <>
     <Container>
-      <AdminHeader title={'Clientes'} />
+      <AdminHeader title={'Banners'} />
       <Row style={{marginBottom: '1.5em'}}>
         <Col style={{textAlign: 'end'}}>
-          <Button style={{backgroundColor: 'rgba(169, 81, 139, 1)'}} onClick={() => router.push('/admin/clients/create')}>
-          <AiOutlinePlus /> Adicionar Cliente
-          </Button>
+          <Link href='/admin/createBanner'>
+            <a >
+              <Button style={{backgroundColor: 'rgba(169, 81, 139, 1)'}}>
+              <AiOutlinePlus /> Criar Banner
+              </Button>
+            </a>
+          </Link>
         </Col>
       </Row>
       <GridComponent dataSource={clients} queryCellInfo={commands}>
@@ -115,12 +120,12 @@ function Banners() {
 }
 
 
-Banners.getLayout = (page: NextPage) => {
+BannersIndex.getLayout = (page: NextPage) => {
   return (
     <AdminLayout>
       {page}
     </AdminLayout>
   )
 }
-Banners.auth = true;
-export default Banners
+BannersIndex.auth = true;
+export default BannersIndex
