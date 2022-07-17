@@ -19,6 +19,7 @@ export default {
   },
   async createClient(payload: createClientInput): Promise<Client | string> {
     const formData = new FormData()
+    if (payload.visible === undefined) payload.visible = true;
     formData.append('Image', payload.Image?.rawFile);
     formData.append('visible',payload.visible.toString());
     formData.append('name', payload.name);

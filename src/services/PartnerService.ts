@@ -2,6 +2,7 @@
 export default {
   async createPartner(payload:createPartnerInput) {
     const data = new FormData();
+    if (payload.active === undefined) payload.active = true;
     data.append('Image', payload.Image?.rawFile);
     data.append('name',payload.name);
     data.append('active',payload.active.toString());

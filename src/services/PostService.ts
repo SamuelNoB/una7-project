@@ -3,6 +3,7 @@
 export default {
   async createPost(payload: createPostInput) {
     const data = new FormData();
+    if (payload.active === undefined) payload.active = true;
     data.append('Image', payload.Image?.rawFile);
     data.append('active',payload.active.toString());
     data.append('title', payload.title);
