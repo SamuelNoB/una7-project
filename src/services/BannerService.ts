@@ -2,8 +2,13 @@ import { Banner } from "@prisma/client";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  async getAllBanners(): Promise<Banner[]> {
-    const response = await fetch('/api/banner/get', {
+  async getAllBanners({queryKey}: any): Promise<Banner[]> {
+    const [_, {onlyActive}] = queryKey
+    let fetchUrl = '/api/banner/get'
+    if (onlyActive !== undefined) {
+      fetchUrl = fetchUrl + '?'+ new URLSearchParams({onlyActive});
+    }
+    const response = await fetch(fetchUrl, {
       method: 'GET',
     });
     const result = await response.json();
