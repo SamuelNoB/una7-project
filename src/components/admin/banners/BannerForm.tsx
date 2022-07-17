@@ -5,7 +5,7 @@ import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { Button, Col, Container, Form, Row, Input, FormGroup, Label } from "reactstrap"
 import AdminHeader from "../Header"
 import { useMutation } from "react-query";
-import ClientService from "../../../services/ClientService";
+import BannerService from "../../../services/BannerService";
 import { toast } from "react-toastify";
 import { Banner } from "@prisma/client";
 
@@ -28,18 +28,19 @@ function BannerForm({Banner}: props ) {
     })
   }, [Banner])
 
-  //const createClient = useMutation((newClient: createClientInput) =>  {return ClientService.createClient(newClient)})
+
+  const createBanner = useMutation((newBanner: createBannerInput) =>  {return BannerService.createBanner(newBanner)})
   //const updateClient = useMutation((newClient: createClientInput) =>  {return ClientService.updateClient({id: Client?.id as number,body:newClient})})
 
   function onSubmit(e: any) {
     e.preventDefault()
-    if (Banner) return onUpdate();
+    //if (Banner) return onUpdate();
     onCreate()
   }
   function onCreate() {
     console.log(bannerData);
     
-    /*createClient.mutate(clientData, {
+    createBanner.mutate(bannerData, {
       onSuccess: () => {
         const message ='Cliente criado com sucesso!';
         toast.success(message, {
@@ -50,9 +51,9 @@ function BannerForm({Banner}: props ) {
           draggable: true,
           progress: undefined,
           });
-        router.push('/admin/clients/')
+        router.push('/admin/banners/')
       }
-    })*/
+    })
   }
 
   function onUpdate() {
@@ -94,7 +95,7 @@ function BannerForm({Banner}: props ) {
             </Col>
             <Col lg={2}>
               <FormGroup check >
-                <Input type="checkbox" checked={bannerData.active as boolean} onChange={e => setBannerData({...bannerData, active: !bannerData.active})} />
+                <Input type="checkbox" value={bannerData.active} checked={bannerData.active as boolean} onChange={e => setBannerData({...bannerData, active: !bannerData.active})} />
                 {' '}
                 <Label check>
                 Banner visível
@@ -138,7 +139,7 @@ function BannerForm({Banner}: props ) {
                 Voltar
               </Button>
             </Col>
-            <Col xs="auto"><Button submit='true' color='success' >Criar</Button></Col>
+            <Col xs="auto"><Button submit color='success' >Criar</Button></Col>
           </Row>
         </Form>
       </Container>
