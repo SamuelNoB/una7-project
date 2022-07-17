@@ -59,6 +59,19 @@ type createBannerInput = {
   Image: any
 }
 
+type updateBannerBody = {
+  id: number,
+  body: updateBannerInput
+}
+
+type updateBannerInput = {
+  active?: boolean | string,
+  name?: string,
+  link?: string,
+  displayUntil?: any,
+  Image?: any
+}
+
 type updateClientBody = {
   id: number,
   body: updateClientInput

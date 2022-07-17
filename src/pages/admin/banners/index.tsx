@@ -75,8 +75,8 @@ function BannersIndex() {
     setDeleteData(bannerData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
-  function goToUpdate(clientData: Banner) {
-    router.push(`/admin/clients/update/${clientData.id}`)
+  function goToUpdate(bannerData: Banner) {
+    router.push(`/admin/updateBanner/${bannerData.id}`)
   }
 
   function afterDeleted(id: string) {

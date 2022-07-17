@@ -38,7 +38,7 @@ export default {
     const result = await response.json()
     return response.status === 200 ? result.data : result.error
   },
-  /*async updateClient(payload: updateClientBody) {
+  async updateBanner(payload: updateBannerBody) {
     const data = new FormData();
     type StatusKey = keyof typeof payload.body;
     data.append('id', payload.id.toString())
@@ -51,13 +51,13 @@ export default {
         data.append(attribute, value)
       }
     })
-    const response = await fetch(`/api/client/put`, {
+    const response = await fetch(`/api/banner/put`, {
       method: 'PUT',
       body: data
     })
     const result = await response.json()
     return result
-  },*/
+  },
 
   async deleteBanner(id: string): Promise<string> {
     const response = await fetch('/api/banner/delete', {

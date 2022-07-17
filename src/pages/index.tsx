@@ -130,7 +130,7 @@ const Home = () => {
           <Carousel 
           responsive={bannerCarouselResponsiviness}
           shouldResetAutoplay
-          //arrows={false}
+          arrows={false}
           className="carousel"
           autoPlay
           ssr

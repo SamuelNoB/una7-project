@@ -21,28 +21,29 @@ function BannerForm({Banner}: props ) {
     active: true
   });
   useEffect(() => {
+    console.log(Banner);
+    
     setBannerData({
       link: Banner?.link,
       name: Banner?.name,
+      displayUntil: Banner?.displayUntil,
       active: Banner?.active
     })
   }, [Banner])
 
 
   const createBanner = useMutation((newBanner: createBannerInput) =>  {return BannerService.createBanner(newBanner)})
-  //const updateClient = useMutation((newClient: createClientInput) =>  {return ClientService.updateClient({id: Client?.id as number,body:newClient})})
+  const updateBanner = useMutation((newClient: createClientInput) =>  {return BannerService.updateBanner({id: Banner?.id as number, body:newClient})})
 
   function onSubmit(e: any) {
     e.preventDefault()
-    //if (Banner) return onUpdate();
+    if (Banner) return onUpdate();
     onCreate()
   }
   function onCreate() {
-    console.log(bannerData);
-    
     createBanner.mutate(bannerData, {
       onSuccess: () => {
-        const message ='Cliente criado com sucesso!';
+        const message ='Banner criado com sucesso!';
         toast.success(message, {
           position: "top-center",
           autoClose: 3000,
@@ -57,9 +58,9 @@ function BannerForm({Banner}: props ) {
   }
 
   function onUpdate() {
-    /*updateClient.mutate(clientData, {
+    updateBanner.mutate(bannerData, {
       onSuccess: () => {
-        const message = 'Cliente atualizado com sucesso!'
+        const message = 'Banner atualizado com sucesso!'
         toast.success(message, {
           position: "top-center",
           autoClose: 3000,
@@ -68,16 +69,16 @@ function BannerForm({Banner}: props ) {
           draggable: true,
           progress: undefined,
           });
-        router.push('/admin/clients/')
+        router.push('/admin/banners/')
       }
-    })*/
+    })
   }
 
-
+  const bannerTitle = ''
   return (
     <>
       <Container>
-        <AdminHeader title={'Adicionar banner'} />
+        <AdminHeader title={ !Banner ?'Adicionar banner': 'Atualizar banner'} />
         <Form onSubmit={onSubmit}>
           <Row className="d-flex justify-content-center">
             <Col lg={4}>
@@ -105,7 +106,7 @@ function BannerForm({Banner}: props ) {
             <Col lg={2}>
               <FormGroup>
                 <Label>Visivel até</Label>
-                <DatePickerComponent onChange={(e: any) => setBannerData({...bannerData, displayUntil: e.value})} />
+                <DatePickerComponent value={bannerData.displayUntil} onChange={(e: any) => setBannerData({...bannerData, displayUntil: e.value})} />
               </FormGroup>
             </Col>
           </Row>
@@ -139,7 +140,7 @@ function BannerForm({Banner}: props ) {
                 Voltar
               </Button>
             </Col>
-            <Col xs="auto"><Button submit color='success' >Criar</Button></Col>
+            <Col xs="auto"><Button submit color='success' >{!Banner ? 'Criar': 'Atualizar'}</Button></Col>
           </Row>
         </Form>
       </Container>
