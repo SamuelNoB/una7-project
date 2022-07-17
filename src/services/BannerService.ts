@@ -3,7 +3,7 @@ import { Banner } from "@prisma/client";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   async getAllBanners(): Promise<Banner[]> {
-    const response = await fetch('/api/client/get', {
+    const response = await fetch('/api/banner/get', {
       method: 'GET',
     });
     const result = await response.json();
@@ -54,8 +54,8 @@ export default {
     return result
   },*/
 
-  /*async deleteClient(id: string): Promise<string> {
-    const response = await fetch('/api/client/delete', {
+  async deleteBanner(id: string): Promise<string> {
+    const response = await fetch('/api/banner/delete', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'Application/json'
@@ -64,6 +64,6 @@ export default {
     })
     const result = await response.json()
     return response.status === 200 ? result.data : result.error 
-  }*/
+  }
 
 }

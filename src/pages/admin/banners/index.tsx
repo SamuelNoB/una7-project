@@ -1,8 +1,8 @@
-import DeleteModal from "@components/admin/clients/DeleteModal"
+import DeleteModal from "@components/admin/banners/DeleteModal"
 import AdminHeader from "@components/admin/Header"
 import Commands from "@components/admin/post/Commands"
-import { Client } from "@prisma/client"
-import ClientService from "@services/ClientService"
+import { Banner } from "@prisma/client"
+import BannerService from "@services/BannerService"
 import { ColumnDirective, ColumnsDirective, GridComponent } from "@syncfusion/ej2-react-grids"
 import AdminLayout from "layouts/AdminLayout"
 import { NextPage } from "next"
@@ -15,6 +15,7 @@ import { useQuery } from "react-query"
 import { toast } from "react-toastify"
 import { Button, Col, Container, Row } from "reactstrap"
 import Link from "next/link"
+import dayjs from "dayjs"
 
 type column = {
   field: string,
@@ -25,7 +26,7 @@ type column = {
 const columns: column[] = [
   {
     field: 'id',
-    headerText: 'ID Cliente',
+    headerText: 'ID Banner',
     width: '50'
   },
 
@@ -36,8 +37,13 @@ const columns: column[] = [
   },
   {
     field: 'visibleText',
-    headerText: 'Visível',
-    width: '80'
+    headerText: 'Ativo',
+    width: '50'
+  },
+  {
+    field: 'displayUntilText',
+    headerText: 'Visivel até',
+    width: '60'
   },
   {
     field: 'commands',
@@ -50,23 +56,26 @@ const columns: column[] = [
 
 function BannersIndex() {
   const router = useRouter()
-  const [clients, setClients] = useState<Client[]>([])
+  const [banners, setBanners] = useState<Banner[]>([])
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const [deleteData, setDeleteData] = useState<Partial<Client>>()
-  const {data, error} = useQuery('getClients', ClientService.getAllClients)
+  const [deleteData, setDeleteData] = useState<Partial<Banner>>()
+  const {data, error} = useQuery('getBanners', BannerService.getAllBanners)
 
   useEffect(() => {
     if (data) {
-
-      setClients(data.map((client) => { return {...client, visibleText: client.visible ? 'Sim': 'Não'}}));
+      setBanners(data.map((banner) => { 
+        return {
+          ...banner, 
+          displayUntilText: banner.displayUntil === null ? 'Sem limite' : dayjs(banner.displayUntil).format('DD/MM/YYYY'), 
+          visibleText: banner.active ? 'Sim': 'Não'}}));
     }
   }, [data])
 
-  function openDeleteModal(clientData: Client) {
-    setDeleteData(clientData)
+  function openDeleteModal(bannerData: Banner) {
+    setDeleteData(bannerData)
     setDeleteModalIsOpen(!deleteModalIsOpen);
   }
-  function goToUpdate(clientData: Client) {
+  function goToUpdate(clientData: Banner) {
     router.push(`/admin/clients/update/${clientData.id}`)
   }
 
@@ -83,7 +92,7 @@ function BannersIndex() {
 
   function commands(args: any) {
     if (args.column.field === "commands") {
-        const rowData = args.data as Client
+        const rowData = args.data as Banner
         const root = createRoot(args.cell);
         root.render(<Commands key={rowData.id} data={rowData} update={goToUpdate} delete={openDeleteModal} />)
     }
@@ -104,7 +113,7 @@ function BannersIndex() {
           </Link>
         </Col>
       </Row>
-      <GridComponent dataSource={clients} queryCellInfo={commands}>
+      <GridComponent dataSource={banners} queryCellInfo={commands}>
       <ColumnsDirective>
         {
           columns.map(column => {
@@ -114,7 +123,7 @@ function BannersIndex() {
       </ColumnsDirective>
     </GridComponent>
     </Container>
-    <DeleteModal open={deleteModalIsOpen} data={deleteData} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
+    <DeleteModal open={deleteModalIsOpen} data={deleteData as any} afterDeleted={afterDeleted} closeModal={() => setDeleteModalIsOpen(!deleteModalIsOpen)} />
   </>
   )
 }

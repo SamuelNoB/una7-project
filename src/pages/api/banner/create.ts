@@ -44,7 +44,7 @@ async function createBanner(
       const parsedData = {
         active: fields.active[0],
         name: fields.name[0],
-        displayUntill: fields.displayUntil[0],
+        displayUntil: fields.displayUntil[0],
         link: fields.link[0],
         Image: files.Image[0]
       }
