@@ -76,7 +76,7 @@ model Publication {
 model Partner {
   id            Int         @id @default(autoincrement())
   name          String
-  link          String
+  link          String      @db.LongText
   active        Boolean     @default(true)
   image         String      @db.LongText	// se relaciona com o model File
   imageType     String      @default("")
@@ -89,6 +89,18 @@ model Client {
   clientPhoto   String      @db.LongText
   photoType     String      @default("")
   link          String?
+}
+
+model Banner {
+  id              Int  @id @default(autoincrement())
+  name            String
+  link            String      @db.LongText
+  image           String      @db.LongText
+  imageType       String      @default("")
+  active          Boolean
+  displayUntil    DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @default(now())
 }
 
 model Contact {
