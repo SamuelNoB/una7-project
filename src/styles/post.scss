@@ -9,7 +9,8 @@
   }
 
   .e-rte-image.e-imginline {
-    max-width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
   }
   @include respond-to('medium') {
     margin: 4em 1em;
