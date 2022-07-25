@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <>
-    <Analytics GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
+    <Analytics />
     <Head>
       <title>Una7</title>
       <meta name="description" content="agência una7 " />

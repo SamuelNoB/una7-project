@@ -1,10 +1,10 @@
 import Script from 'next/script'
 
-const Analytics = ({GA_TRACKING_ID}: any) => (
+const Analytics = () => (
   <>
     <Script 
       strategy="lazyOnload" 
-      src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} 
+      src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`} 
     />
     <Script
       id='1'
