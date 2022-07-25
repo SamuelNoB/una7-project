@@ -54,10 +54,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events])
+  
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <>
+    <Analytics GA_TRACKING_ID={process.env.NEXT_PUBLIC_GA_TRACKING_ID} />
     <Head>
       <title>Una7</title>
       <meta name="description" content="agência una7 " />
@@ -75,7 +77,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       </SessionProvider>
     </QueryClientProvider>
     <ToastContainer />
-    <Analytics />
+    
   </>
   )
 }

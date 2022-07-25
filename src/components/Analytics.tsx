@@ -1,26 +1,23 @@
 import Script from 'next/script'
-import { GA_TRACKING_ID } from '../libs/gtag'
 
-const Analytics = () => (
+const Analytics = ({GA_TRACKING_ID}: any) => (
   <>
     <Script 
-      strategy="afterInteractive" 
+      strategy="lazyOnload" 
       src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} 
     />
     <Script
       id='1'
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{
-        __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `
-      }}
-    />
+      strategy="lazyOnload">
+      {
+        `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}');
+        `
+      }
+    </Script>
   </>
 )
 
